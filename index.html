@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>客製化系統需求表</title>
+  <title>線上定型化契約客製化需求表</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap');
 
@@ -20,7 +20,6 @@
       --ok:#3E7B5D;
       --shadow:0 16px 40px rgba(73,53,34,.08);
       --radius:24px;
-      --radius-sm:16px;
     }
 
     *{ box-sizing:border-box; }
@@ -137,16 +136,6 @@
       transition:.18s ease;
     }
 
-    input[type="file"]{
-      width:100%;
-      border:1px dashed var(--line);
-      background:#fff;
-      color:var(--text);
-      border-radius:14px;
-      padding:12px 14px;
-      font:inherit;
-    }
-
     textarea{
       min-height:110px;
       resize:vertical;
@@ -165,8 +154,8 @@
 
     .chip,
     .radioCard,
-    .priceCard{
-      position:relative;
+    .priceCard,
+    .totalCard{
       border:1px solid var(--line);
       border-radius:16px;
       background:#fff;
@@ -204,15 +193,6 @@
       background:#FFFCF7;
     }
 
-    .mini{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      font-weight:500;
-      margin-top:3px;
-      line-height:1.5;
-    }
-
     .priceWrap{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
@@ -232,6 +212,42 @@
       color:var(--accent);
       font-size:18px;
       font-weight:800;
+    }
+
+    .totalCard{
+      margin-top:14px;
+      padding:18px;
+      background:#FFFCF7;
+      border-color:var(--accent-2);
+    }
+
+    .totalLabel{
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .totalValue{
+      font-size:32px;
+      line-height:1.1;
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    .totalDesc{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .lineLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      color:var(--accent);
+      text-decoration:none;
+      word-break:break-all;
     }
 
     .actions{
@@ -290,6 +306,7 @@
       .grid, .optionGrid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
       .cardBody{ padding:16px; }
       .wrap{ padding:20px 14px 54px; }
+      .totalValue{ font-size:28px; }
     }
   </style>
 </head>
@@ -299,7 +316,7 @@
       <div class="brand">客製化系統需求表</div>
       <h1>店家需求填寫表單</h1>
       <div class="sub">
-        店家只要填寫想要的項目、內容方式與色系，你就能依照表單內容快速整理需求並客製化生成對應程式碼。
+        店家填完後，你就能快速整理需求、核對價格，並依照勾選內容客製化生成對應程式碼。
       </div>
     </div>
 
@@ -310,15 +327,15 @@
           <div class="grid">
             <div class="field">
               <label for="storeName">店家名稱<span class="req">*</span></label>
-              <input id="storeName" name="storeName" type="text" required placeholder="例如：熊嶼寵物有限公司" />
+              <input id="storeName" name="storeName" type="text" required placeholder="例如：ＯＯ寵物有限公司" />
             </div>
             <div class="field">
               <label for="storeNameEn">英文店名</label>
-              <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：Kumajima Pet Salon" />
+              <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：ABC Pet Salon" />
             </div>
             <div class="field">
               <label for="storeLine">店家 LINE<span class="req">*</span></label>
-              <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@kumajima" />
+              <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@abc123456" />
             </div>
             <div class="field">
               <label for="storeAddress">店家地址<span class="req">*</span></label>
@@ -339,14 +356,14 @@
       <section class="card">
         <div class="cardHead">B. 想要製作的項目</div>
         <div class="cardBody">
-          <div class="hint">可複選。你後續可以依照這些勾選項目決定報價與要生成的內容。</div>
+          <div class="hint">可複選。下方會自動計算目前預估價格。</div>
           <div class="optionGrid">
-            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁含顧客資料卡）</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁包含顧客資料卡）</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="contract_only">定型化契約</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="hotel_profile">住宿基本資料卡</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="hotel_checkout">住宿明細確認單</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="physical_card">實體顧客資料卡</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報設計(含印刷費用$383元)</label></div>
           </div>
         </div>
       </section>
@@ -437,10 +454,11 @@
               <label for="customTheme">自訂色系說明</label>
               <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕" />
             </div>
-            <div class="field full hide" id="logoUploadWrap">
-              <label for="logoFile">上傳 LOGO</label>
-              <input id="logoFile" name="logoFile" type="file" accept="image/*,.pdf,.ai,.eps" />
-              <div class="hint" style="margin:6px 0 0;">目前這份表單前端已先保留上傳欄位，但你現在的 Apps Script 接收程式還不能直接收檔案。若要真的收到檔案，需另外加上檔案上傳流程。</div>
+            <div class="field full hide" id="logoHelpWrap">
+              <label>LOGO 提供方式</label>
+              <div class="hint" style="margin:6px 0 0;">請於送出表單後，將 LOGO 圖檔傳送至官方 LINE。</div>
+              <a class="lineLink" href="https://line.me/R/ti/p/@kumajima2025" target="_blank">@kumajima2025</a>
+              <div class="hint" style="margin:6px 0 0;">傳送時請備註「店家名稱」，方便我們對應您的表單資料。</div>
             </div>
           </div>
         </div>
@@ -450,7 +468,7 @@
         <div class="cardHead">E. 操作方式</div>
         <div class="cardBody">
           <div class="field">
-            <label><span class="req">*</span>請選擇</label>
+            <label>請選擇<span class="req">*</span></label>
             <div class="radioRow">
               <div class="radioCard"><label><input type="radio" name="operationMode" value="self" required>全程自行操作</label></div>
               <div class="radioCard"><label><input type="radio" name="operationMode" value="assist" required>需要協助操作</label></div>
@@ -462,7 +480,7 @@
       <section class="card">
         <div class="cardHead">F. 方案價格</div>
         <div class="cardBody">
-          <div class="hint">以下為目前顯示價格。若有多項一起製作，你之後也可以再依需求另外調整報價。</div>
+          <div class="hint">目前顯示的品項價格如下，並會依照勾選內容自動累計預估總價。</div>
           <div class="priceWrap">
             <div class="priceCard">
               <div class="priceTitle">定型化契約＋顧客資料卡</div>
@@ -481,6 +499,11 @@
               <div class="priceAmount">$3000</div>
             </div>
           </div>
+          <div class="totalCard">
+            <div class="totalLabel">預估總價</div>
+            <div class="totalValue" id="totalPrice">$0</div>
+            <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
+          </div>
         </div>
       </section>
 
@@ -496,7 +519,15 @@
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycby6oRrIGkuBMnIumFP8IHnIapZerZGFW47Rl2P6J33x7xiB8IH-vzQZJs28lvdwtXW0/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyhG5VGHcsllaIxm6_SkRhlOvn228xw1tVZhiagJ227mQR85ZqCIpRtVhaGxI2gvEQ/exec";
+    const PRICE_MAP = {
+      contract_with_card: 5000,
+      contract_only: 3000,
+      hotel_profile: 3000,
+      hotel_checkout: 3000,
+      physical_card: 0,
+      poster: 0
+    };
 
     const form = document.getElementById('intakeForm');
     const statusBox = document.getElementById('status');
@@ -504,7 +535,7 @@
     const theme = document.getElementById('theme');
     const customThemeWrap = document.getElementById('customThemeWrap');
     const logoNeedEls = document.querySelectorAll('input[name="logoNeed"]');
-    const logoUploadWrap = document.getElementById('logoUploadWrap');
+    const logoHelpWrap = document.getElementById('logoHelpWrap');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
     const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
@@ -512,6 +543,8 @@
     const physicalCardCustomWrap = document.getElementById('physicalCardCustomWrap');
     const posterSection = document.getElementById('posterSection');
     const posterCustomWrap = document.getElementById('posterCustomWrap');
+    const totalPrice = document.getElementById('totalPrice');
+    const totalDesc = document.getElementById('totalDesc');
 
     function showStatus(type, message){
       statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
@@ -536,8 +569,8 @@
       customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
     }
 
-    function toggleLogoUpload(){
-      logoUploadWrap.classList.toggle('hide', getRadioValue('logoNeed') !== 'yes');
+    function toggleLogoHelp(){
+      logoHelpWrap.classList.toggle('hide', getRadioValue('logoNeed') !== 'yes');
     }
 
     function toggleContractCustom(){
@@ -595,11 +628,38 @@
       togglePhysicalCardCustom();
       togglePosterSection();
       togglePosterCustom();
+      updatePrice();
+    }
+
+    function formatMoney(num){
+      return '$' + Number(num || 0).toLocaleString('zh-Hant-TW');
+    }
+
+    function updatePrice(){
+      const modules = getModules();
+      const total = modules.reduce((sum, key) => sum + (PRICE_MAP[key] || 0), 0);
+      totalPrice.textContent = formatMoney(total);
+
+      const selectedText = modules.map(key => {
+        const map = {
+          contract_with_card: '定型化契約＋顧客資料卡',
+          contract_only: '定型化契約',
+          hotel_profile: '住宿基本資料卡',
+          hotel_checkout: '住宿明細確認單',
+          physical_card: '實體顧客資料卡',
+          poster: '半開契約海報'
+        };
+        return map[key] || key;
+      });
+
+      totalDesc.textContent = selectedText.length
+        ? '目前勾選：' + selectedText.join('、')
+        : '請勾選上方製作項目後自動計算。';
     }
 
     function collectData(){
       const modules = getModules();
-      const logoFile = document.getElementById('logoFile').files[0];
+      const total = modules.reduce((sum, key) => sum + (PRICE_MAP[key] || 0), 0);
 
       return {
         submittedAt: new Date().toISOString(),
@@ -626,9 +686,7 @@
           theme: form.theme.value,
           customTheme: form.customTheme.value.trim(),
           logoNeed: getRadioValue('logoNeed'),
-          logoFileName: logoFile ? logoFile.name : '',
-          logoFileType: logoFile ? logoFile.type : '',
-          logoFileSize: logoFile ? logoFile.size : ''
+          logoLineId: '@kumajima2025'
         },
         operation: {
           mode: getRadioValue('operationMode')
@@ -637,7 +695,10 @@
           combo_contract_with_card: 5000,
           contract_only: 3000,
           hotel_profile: 3000,
-          hotel_checkout: 3000
+          hotel_checkout: 3000,
+          physical_card: 0,
+          poster: 0,
+          total: total
         }
       };
     }
@@ -657,7 +718,7 @@
     document.querySelectorAll('input[name="posterMode"]').forEach(el => {
       el.addEventListener('change', togglePosterCustom);
     });
-    logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoUpload));
+    logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoHelp));
     theme.addEventListener('change', toggleCustomTheme);
 
     previewBtn.addEventListener('click', () => {
@@ -672,7 +733,7 @@
       setTimeout(() => {
         hideStatus();
         toggleCustomTheme();
-        toggleLogoUpload();
+        toggleLogoHelp();
         syncContentSections();
       }, 0);
     });
@@ -706,7 +767,7 @@
           throw new Error(result.error || '送出失敗');
         }
 
-        showStatus('ok', '表單已成功送出，資料已提交。');
+        showStatus('ok', '表單已成功送出，資料已提交。若有需要 LOGO，請記得再傳送到官方 LINE。');
         form.reset();
       } catch(err){
         console.error(err);
@@ -715,7 +776,7 @@
     });
 
     toggleCustomTheme();
-    toggleLogoUpload();
+    toggleLogoHelp();
     syncContentSections();
   </script>
 </body>
