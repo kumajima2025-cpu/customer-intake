@@ -146,12 +146,6 @@
       box-shadow:0 0 0 4px rgba(184,146,106,.12);
     }
 
-    .optionGrid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-    }
-
     .chip,
     .radioCard,
     .priceCard,
@@ -191,6 +185,40 @@
       border-color:var(--accent-2);
       box-shadow:0 0 0 4px rgba(184,146,106,.10);
       background:#FFFCF7;
+    }
+
+    .optionList{
+      display:grid;
+      gap:10px;
+    }
+
+    .optionItem{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:10px;
+      align-items:stretch;
+    }
+
+    .previewBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:96px;
+      padding:0 16px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      color:var(--accent);
+      font-weight:800;
+      text-decoration:none;
+      transition:.18s ease;
+      cursor:pointer;
+    }
+
+    .previewBtn:hover{
+      border-color:var(--accent-2);
+      background:#FFFCF7;
+      transform:translateY(-1px);
     }
 
     .priceWrap{
@@ -271,145 +299,101 @@
 
     .hide{ display:none !important; }
 
+    .previewModal{
+      position:fixed;
+      inset:0;
+      background:rgba(33, 26, 20, .45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:9999;
+    }
+
+    .previewModal.show{
+      display:flex;
+    }
+
+    .previewPanel{
+      width:min(1100px, 100%);
+      height:min(88vh, 900px);
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .previewHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 18px;
+      border-bottom:1px solid var(--line);
+      background:#FCF8F2;
+    }
+
+    .previewTitle{
+      font-weight:800;
+      font-size:16px;
+    }
+
+    .previewClose{
+      border:0;
+      background:#EFE6DA;
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .previewBody{
+      flex:1;
+      background:#fff;
+    }
+
+    .previewFrame{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    .previewImageWrap{
+      width:100%;
+      height:100%;
+      overflow:auto;
+      background:#F8F4EE;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .previewImage{
+      max-width:100%;
+      height:auto;
+      display:block;
+      border-radius:16px;
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
     @media (max-width: 760px){
-      .grid, .optionGrid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
+      .grid, .radioRow, .priceWrap, .optionItem{ grid-template-columns:1fr; }
       .cardBody{ padding:16px; }
       .wrap{ padding:20px 14px 54px; }
       .totalValue{ font-size:28px; }
+      .previewBtn{ min-height:46px; }
+      .previewPanel{
+        height:min(90vh, 900px);
+        border-radius:18px;
+      }
     }
-
-    .optionList{
-  display:grid;
-  gap:10px;
-}
-
-.optionItem{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:10px;
-  align-items:stretch;
-}
-
-.previewBtn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:96px;
-  padding:0 16px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fff;
-  color:var(--accent);
-  font-weight:800;
-  text-decoration:none;
-  transition:.18s ease;
-  cursor:pointer;
-}
-
-.previewBtn:hover{
-  border-color:var(--accent-2);
-  background:#FFFCF7;
-  transform:translateY(-1px);
-}
-
-.previewModal{
-  position:fixed;
-  inset:0;
-  background:rgba(33, 26, 20, .45);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:9999;
-}
-
-.previewModal.show{
-  display:flex;
-}
-
-.previewPanel{
-  width:min(1100px, 100%);
-  height:min(88vh, 900px);
-  background:#fff;
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 24px 60px rgba(0,0,0,.18);
-  border:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-}
-
-.previewHead{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 18px;
-  border-bottom:1px solid var(--line);
-  background:#FCF8F2;
-}
-
-.previewTitle{
-  font-weight:800;
-  font-size:16px;
-}
-
-.previewClose{
-  border:0;
-  background:#EFE6DA;
-  color:var(--text);
-  border-radius:999px;
-  padding:10px 14px;
-  font:inherit;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.previewBody{
-  flex:1;
-  background:#fff;
-}
-
-.previewFrame{
-  width:100%;
-  height:100%;
-  border:0;
-  display:block;
-}
-
-.previewImageWrap{
-  width:100%;
-  height:100%;
-  overflow:auto;
-  background:#F8F4EE;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:20px;
-}
-
-.previewImage{
-  max-width:100%;
-  height:auto;
-  display:block;
-  border-radius:16px;
-  box-shadow:0 8px 24px rgba(0,0,0,.08);
-}
-
-@media (max-width:760px){
-  .optionItem{
-    grid-template-columns:1fr;
-  }
-
-  .previewBtn{
-    min-height:46px;
-  }
-
-  .previewPanel{
-    height:min(90vh, 900px);
-    border-radius:18px;
-  }
-}
   </style>
 </head>
 <body>
@@ -456,100 +440,100 @@
       <section class="card">
         <div class="cardHead">B. 想要製作的項目</div>
         <div class="cardBody">
-          <div class="hint">可複選。下方會自動計算目前預估價格。</div>
+          <div class="hint">可複選。右側可直接看範例，下方會自動計算目前預估價格。</div>
+
           <div class="optionList">
- <div class="optionList">
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="contract_with_card">
+                  定型化契約（同個網頁含顧客資料卡）
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="定型化契約（同個網頁含顧客資料卡）"
+                data-preview-src="contract-with-card-preview.html">
+                看範例
+              </button>
+            </div>
 
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="contract_with_card">
-        定型化契約（同個網頁含顧客資料卡）
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="page"
-      data-preview-title="定型化契約（同個網頁含顧客資料卡）"
-      data-preview-src="contract-with-card-preview.html">
-      看範例
-    </button>
-  </div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="contract_only">
+                  定型化契約
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="定型化契約"
+                data-preview-src="contract-only-preview.html">
+                看範例
+              </button>
+            </div>
 
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="contract_only">
-        定型化契約
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="page"
-      data-preview-title="定型化契約"
-      data-preview-src="contract-only-preview.html">
-      看範例
-    </button>
-  </div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="hotel_profile">
+                  住宿基本資料卡
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="住宿基本資料卡"
+                data-preview-src="hotel-profile-preview.html">
+                看範例
+              </button>
+            </div>
 
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="hotel_profile">
-        住宿基本資料卡
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="page"
-      data-preview-title="住宿基本資料卡"
-      data-preview-src="hotel-profile-preview.html">
-      看範例
-    </button>
-  </div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="hotel_checkout">
+                  住宿明細確認單
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="住宿明細確認單"
+                data-preview-src="hotel-checkout-preview.html">
+                看範例
+              </button>
+            </div>
 
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="hotel_checkout">
-        住宿明細確認單
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="page"
-      data-preview-title="住宿明細確認單"
-      data-preview-src="hotel-checkout-preview.html">
-      看範例
-    </button>
-  </div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="physical_card">
+                  實體顧客資料卡
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="image"
+                data-preview-title="實體顧客資料卡"
+                data-preview-src="physical-card-preview.jpg">
+                看範例
+              </button>
+            </div>
 
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="physical_card">
-        實體顧客資料卡
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="image"
-      data-preview-title="實體顧客資料卡"
-      data-preview-src="physical-card-preview.jpg">
-      看範例
-    </button>
-  </div>
-
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="poster">
-        半開契約海報
-      </label>
-    </div>
-    <button type="button" class="previewBtn"
-      data-preview-type="image"
-      data-preview-title="半開契約海報"
-      data-preview-src="poster-preview.jpg">
-      看範例
-    </button>
-  </div>
-</div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="poster">
+                  半開契約海報
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="image"
+                data-preview-title="半開契約海報"
+                data-preview-src="poster-preview.jpg">
+                看範例
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -750,20 +734,21 @@
 
       <div id="status" class="status"></div>
       <div class="footerNote">此頁可直接放上 GitHub Pages。把下方 JavaScript 的 GAS_URL 改成你的 Apps Script Web App 網址即可開始收單。</div>
-    <div class="previewModal" id="previewModal">
-  <div class="previewPanel">
-    <div class="previewHead">
-      <div class="previewTitle" id="previewTitle">預覽</div>
-      <button type="button" class="previewClose" id="previewClose">關閉</button>
-    </div>
-    <div class="previewBody" id="previewBody"></div>
-  </div>
-</div>
-          </form>
+
+      <div class="previewModal" id="previewModal">
+        <div class="previewPanel">
+          <div class="previewHead">
+            <div class="previewTitle" id="previewTitle">預覽</div>
+            <button type="button" class="previewClose" id="previewClose">關閉</button>
+          </div>
+          <div class="previewBody" id="previewBody"></div>
+        </div>
+      </div>
+    </form>
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw_2ZGq2zCda0KT0n7o5T0cyQ7An8CiDiuz_flLnqIj8dfQvUuQJVoiRGG1qelqZ0ZN/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
 
     const PRICE_MAP = {
       contract_with_card: 5000,
@@ -798,6 +783,11 @@
     const totalDesc = document.getElementById('totalDesc');
     const operationHint = document.getElementById('operationHint');
 
+    const previewModal = document.getElementById('previewModal');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewBody = document.getElementById('previewBody');
+    const previewClose = document.getElementById('previewClose');
+
     function showStatus(type, message){
       statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
       statusBox.textContent = message;
@@ -814,12 +804,7 @@
     }
 
     function getModules(){
-      return Array.from(document.querySelectorAll('input[name="modules"]:checked, input[name="modules"]:checked')).map(el => el.value);
-    }
-
-    // 修正上面 selector，避免瀏覽器相容問題
-    function getModules(){
-      return Array.from(document.querySelectorAll('input[name="modules"]:checked'.replace(':checked', '') + ':checked')).map(el => el.value);
+      return Array.from(document.querySelectorAll('input[name="modules"]:checked')).map(el => el.value);
     }
 
     function toggleCustomTheme(){
@@ -1046,6 +1031,31 @@
       };
     }
 
+    function openPreview(type, title, src){
+      previewTitle.textContent = title || '預覽';
+
+      if(type === 'image'){
+        previewBody.innerHTML = `
+          <div class="previewImageWrap">
+            <img class="previewImage" src="${src}" alt="${title}">
+          </div>
+        `;
+      }else{
+        previewBody.innerHTML = `
+          <iframe class="previewFrame" src="${src}" title="${title}"></iframe>
+        `;
+      }
+
+      previewModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePreview(){
+      previewModal.classList.remove('show');
+      previewBody.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
     document.querySelectorAll('input[name="modules"]').forEach(el => {
       el.addEventListener('change', syncContentSections);
     });
@@ -1098,6 +1108,30 @@
 
     logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoHelp));
     theme.addEventListener('change', toggleCustomTheme);
+
+    document.querySelectorAll('.previewBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        openPreview(
+          btn.dataset.previewType,
+          btn.dataset.previewTitle,
+          btn.dataset.previewSrc
+        );
+      });
+    });
+
+    previewClose.addEventListener('click', closePreview);
+
+    previewModal.addEventListener('click', (e) => {
+      if(e.target === previewModal){
+        closePreview();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && previewModal.classList.contains('show')){
+        closePreview();
+      }
+    });
 
     previewBtn.addEventListener('click', () => {
       hideStatus();
@@ -1158,61 +1192,6 @@
     toggleCustomTheme();
     toggleLogoHelp();
     syncContentSections();
-const previewModal = document.getElementById('previewModal');
-const previewTitle = document.getElementById('previewTitle');
-const previewBody = document.getElementById('previewBody');
-const previewClose = document.getElementById('previewClose');
-
-function openPreview(type, title, src){
-  previewTitle.textContent = title || '預覽';
-
-  if(type === 'image'){
-    previewBody.innerHTML = `
-      <div class="previewImageWrap">
-        <img class="previewImage" src="${src}" alt="${title}">
-      </div>
-    `;
-  }else{
-    previewBody.innerHTML = `
-      <iframe class="previewFrame" src="${src}" title="${title}"></iframe>
-    `;
-  }
-
-  previewModal.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
-function closePreview(){
-  previewModal.classList.remove('show');
-  previewBody.innerHTML = '';
-  document.body.style.overflow = '';
-}
-
-document.querySelectorAll('.previewBtn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    openPreview(
-      btn.dataset.previewType,
-      btn.dataset.previewTitle,
-      btn.dataset.previewSrc
-    );
-  });
-});
-
-previewClose.addEventListener('click', closePreview);
-
-previewModal.addEventListener('click', (e) => {
-  if(e.target === previewModal){
-    closePreview();
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape' && previewModal.classList.contains('show')){
-    closePreview();
-  }
-});
-  
-  
   </script>
 </body>
 </html>
