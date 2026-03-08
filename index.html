@@ -285,6 +285,7 @@
       border-radius:16px;
       font-size:14px;
       display:none;
+      white-space:pre-line;
     }
     .status.show{ display:block; }
     .status.ok{ background:#EEF8F1; color:var(--ok); border:1px solid #CFE8D7; }
@@ -396,9 +397,7 @@
     }
   </style>
 </head>
-  <body data-system="ElaineWanCustomFormSystem"
-      data-author="Elaine Wan"
-      data-version="1.0">
+<body data-system="ElaineWanCustomFormSystem" data-author="Elaine Wan" data-version="1.0">
   <div class="wrap">
     <div class="hero">
       <div class="brand">客製化系統需求表</div>
@@ -446,93 +445,96 @@
 
           <div class="optionList">
             <div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="contract_with_card">
-      定型化契約＋顧客資料卡
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="page"
-    data-preview-title="契約＋顧客資料卡"
-    data-preview-src="previews/contract-with-card-preview.html">
-    看範例
-  </button>
-</div>
-<div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="contract_only">
-      定型化契約（僅契約頁）
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="page"
-    data-preview-title="定型化契約"
-    data-preview-src="previews/contract-only-preview.html">
-    看範例
-  </button>
-</div>
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="contract_with_card">
+                  定型化契約＋顧客資料卡
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="契約＋顧客資料卡"
+                data-preview-src="previews/contract-with-card-preview.html">
+                看範例
+              </button>
+            </div>
 
-<div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="hotel_profile">
-      住宿基本資料卡
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="page"
-    data-preview-title="住宿基本資料卡"
-    data-preview-src="previews/hotel-profile-preview.html">
-    看範例
-  </button>
-</div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="contract_only">
+                  定型化契約（僅契約頁）
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="定型化契約"
+                data-preview-src="previews/contract-only-preview.html">
+                看範例
+              </button>
+            </div>
 
-<div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="hotel_checkout">
-      住宿明細確認單
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="page"
-    data-preview-title="住宿明細確認單"
-    data-preview-src="previews/hotel-checkout-preview.html">
-    看範例
-  </button>
-</div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="hotel_profile">
+                  住宿基本資料卡
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="住宿基本資料卡"
+                data-preview-src="previews/hotel-profile-preview.html">
+                看範例
+              </button>
+            </div>
 
-<div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="physical_card">
-      實體顧客資料卡（紙本）
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="image"
-    data-preview-title="實體顧客資料卡"
-    data-preview-src="previews/physical-card-preview.jpg">
-    看範例
-  </button>
-</div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="hotel_checkout">
+                  住宿明細確認單
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="page"
+                data-preview-title="住宿明細確認單"
+                data-preview-src="previews/hotel-checkout-preview.html">
+                看範例
+              </button>
+            </div>
 
-<div class="optionItem">
-  <div class="chip">
-    <label>
-      <input type="checkbox" name="modules" value="poster">
-      半開契約海報（店內張貼）
-    </label>
-  </div>
-  <button type="button" class="previewBtn"
-    data-preview-type="image"
-    data-preview-title="半開契約海報"
-    data-preview-src="previews/poster-preview.jpg">
-    看範例
-  </button>
-</div>
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="physical_card">
+                  實體顧客資料卡（紙本）
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="image"
+                data-preview-title="實體顧客資料卡"
+                data-preview-src="previews/physical-card-preview.jpg">
+                看範例
+              </button>
+            </div>
+
+            <div class="optionItem">
+              <div class="chip">
+                <label>
+                  <input type="checkbox" name="modules" value="poster">
+                  半開契約海報（店內張貼）
+                </label>
+              </div>
+              <button type="button" class="previewBtn"
+                data-preview-type="image"
+                data-preview-title="半開契約海報"
+                data-preview-src="previews/poster-preview.jpg">
+                看範例
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -545,6 +547,7 @@
               <div class="radioCard"><label><input type="radio" name="contractMode" value="custom" required>自行提供內容</label></div>
             </div>
           </div>
+
           <div class="field full hide" id="contractCustomWrap" style="margin-top:12px;">
             <label for="contractCustomText">契約內容補充</label>
             <textarea id="contractCustomText" name="contractCustomText" placeholder="請完整貼上契約內容"></textarea>
@@ -626,25 +629,23 @@
         <div class="cardHead">D. 視覺設定</div>
         <div class="cardBody">
           <div class="grid">
-<div class="field">
-  <label for="theme">色系<span class="req">*</span></label>
+            <div class="field">
+              <label for="theme">色系<span class="req">*</span></label>
+              <select id="theme" name="theme" required>
+                <option value="">請選擇色系</option>
+                <option value="cream">奶油暖白</option>
+                <option value="earth">大地卡其</option>
+                <option value="moca">莫蘭迪灰棕</option>
+                <option value="peach">粉橘溫柔</option>
+                <option value="mono">黑白極簡</option>
+                <option value="custom">其他自訂</option>
+              </select>
+              <div class="hint" style="margin-top:6px;line-height:1.6;">
+                *顧客資料卡為黑白印刷複寫紙，一式兩份，無法更改顏色。<br>
+                *半開契約海報可以更改底色及文字顏色。
+              </div>
+            </div>
 
-  <select id="theme" name="theme" required>
-    <option value="">請選擇色系</option>
-    <option value="cream">奶油暖白</option>
-    <option value="earth">大地卡其</option>
-    <option value="moca">莫蘭迪灰棕</option>
-    <option value="peach">粉橘溫柔</option>
-    <option value="mono">黑白極簡</option>
-    <option value="custom">其他自訂</option>
-  </select>
-
-  <div class="hint" style="margin-top:6px;line-height:1.6;">
-    *顧客資料卡為黑白印刷複寫紙，一式兩份，無法更改顏色。<br>
-    *半開契約海報可以更改底色及文字顏色。
-  </div>
-
-</div>
             <div class="field">
               <label>LOGO<span class="req">*</span></label>
               <div class="radioRow">
@@ -652,6 +653,7 @@
                 <div class="radioCard"><label><input type="radio" name="logoNeed" value="no" required>不需要</label></div>
               </div>
             </div>
+
             <div class="field full hide" id="customThemeWrap">
               <label for="customTheme">自訂色系說明</label>
               <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕" />
@@ -678,6 +680,7 @@
         <div class="cardHead">F. 方案價格</div>
         <div class="cardBody">
           <div class="hint">目前顯示的品項價格如下，並會依照勾選內容自動累計預估總價。</div>
+
           <div class="priceWrap">
             <div class="priceCard">
               <div class="priceTitle">定型化契約＋顧客資料卡</div>
@@ -729,14 +732,15 @@
         <button type="button" class="btnGhost" id="previewBtn">預覽送出資料</button>
         <button type="reset" class="btnGhost">清空重填</button>
         <button type="submit" class="btnPrimary">送出需求表</button>
-        <div id="status" class="status"></div>
       </div>
 
-     <div class="footerNote" style="margin-top:10px;line-height:1.6;">
-製作與設計 © Elaine Wan<br>
-本系統為個人開發之客製化表單與流程設計，包含版面設計、功能邏輯與使用流程。<br>
-請勿未經授權擅自複製、散布或轉售本系統內容，感謝你尊重創作者的心♥
-</div>
+      <div id="status" class="status"></div>
+
+      <div class="footerNote" style="margin-top:10px;line-height:1.6;">
+        製作與設計 © Elaine Wan<br>
+        本系統為個人開發之客製化表單與流程設計，包含版面設計、功能邏輯與使用流程。<br>
+        請勿未經授權擅自複製、散布或轉售本系統內容，感謝你尊重創作者的心♥
+      </div>
 
       <div class="previewModal" id="previewModal">
         <div class="previewPanel">
@@ -752,17 +756,14 @@
 
   <script>
     function generateOrderId(){
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      const rand = Math.floor(Math.random()*9000)+1000;
+      return `EW-${y}${m}${day}-${rand}`;
+    }
 
-  const d = new Date()
-
-  const y = d.getFullYear()
-  const m = String(d.getMonth()+1).padStart(2,"0")
-  const day = String(d.getDate()).padStart(2,"0")
-
-  const rand = Math.floor(Math.random()*9000)+1000
-
-  return `EW-${y}${m}${day}-${rand}`
-}
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
 
     const PRICE_MAP = {
@@ -781,7 +782,6 @@
     const previewBtn = document.getElementById('previewBtn');
     const theme = document.getElementById('theme');
     const customThemeWrap = document.getElementById('customThemeWrap');
-    const logoNeedEls = document.querySelectorAll('input[name="logoNeed"]');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
     const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
@@ -824,7 +824,6 @@
     function toggleCustomTheme(){
       customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
     }
-
 
     function toggleContractCustom(){
       contractCustomWrap.classList.toggle('hide', getRadioValue('contractMode') !== 'custom');
@@ -993,11 +992,11 @@
         }
       });
 
-const orderId = generateOrderId()
+      const orderId = generateOrderId();
 
-return {
-  orderId,
-  submittedAt: new Date().toISOString(),
+      return {
+        orderId,
+        submittedAt: new Date().toISOString(),
         storeInfo: {
           storeName: form.storeName.value.trim(),
           storeNameEn: form.storeNameEn.value.trim(),
@@ -1024,8 +1023,7 @@ return {
         design: {
           theme: form.theme.value,
           customTheme: form.customTheme.value.trim(),
-          logoNeed: getRadioValue('logoNeed'),
-          logoLineId: '@kumajima2025'
+          logoNeed: getRadioValue('logoNeed')
         },
         operation: {
           mode: getRadioValue('operationMode')
@@ -1155,7 +1153,6 @@ return {
 
     form.addEventListener('reset', () => {
       setTimeout(() => {
-        hideStatus();
         toggleCustomTheme();
         syncContentSections();
       }, 0);
@@ -1167,6 +1164,7 @@ return {
       if(!form.reportValidity()) return;
 
       const payload = collectData();
+
       if(!GAS_URL || GAS_URL.includes('請換成你的WebApp網址')){
         showStatus('err', '你還沒設定 Apps Script Web App 網址，請先把 GAS_URL 換成你的網址。');
         console.log('目前準備送出的 payload：', payload);
@@ -1192,34 +1190,26 @@ return {
           throw new Error(result.error || '送出失敗');
         }
 
-       const modules = payload.modules || []
+        form.reset();
 
-const moduleMap = {
-  contract_with_card:"定型化契約＋顧客資料卡",
-  contract_only:"定型化契約",
-  hotel_profile:"住宿基本資料卡",
-  hotel_checkout:"住宿明細確認單",
-  physical_card:"實體顧客資料卡",
-  poster:"半開契約海報"
-}
-
-const moduleText = modules.map(m=>moduleMap[m]||m).join("、")
-
-showStatus(
-'ok',
-`表單已成功送出 ✔️
+        setTimeout(() => {
+          showStatus(
+  'ok',
+  `表單已成功送出 ✔️
 
 訂單編號：${payload.orderId}
 
-我會先確認您的需求與價格，
-確認後會提供匯款資訊。
+請先加入 LINE 確認內容：
+https://line.me/ti/p/k8vS9REcTl
 
-匯款完成後，
-請加入 LINE 以取得設定步驟與程式碼：
+這邊會先與你確認製作項目、細節與最終報價。
+確認完成後，提供匯款資訊給你！
 
-https://line.me/ti/p/k8vS9REcTl`
-)
-        form.reset();
+完成匯款後，
+才會提供設定步驟與客製程式碼唷～`
+);
+        }, 0);
+
       } catch(err){
         console.error(err);
         showStatus('err', '送出失敗，請稍後再試，或檢查 Apps Script 權限與網址是否正確。');
