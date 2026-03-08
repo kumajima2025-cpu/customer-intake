@@ -277,6 +277,49 @@
       .wrap{ padding:20px 14px 54px; }
       .totalValue{ font-size:28px; }
     }
+
+    .optionList{
+  display:grid;
+  gap:10px;
+}
+
+.optionItem{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:stretch;
+}
+
+.previewBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:96px;
+  padding:0 16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  color:var(--accent);
+  font-weight:800;
+  text-decoration:none;
+  transition:.18s ease;
+}
+
+.previewBtn:hover{
+  border-color:var(--accent-2);
+  background:#FFFCF7;
+  transform:translateY(-1px);
+}
+
+@media (max-width:760px){
+  .optionItem{
+    grid-template-columns:1fr;
+  }
+
+  .previewBtn{
+    min-height:46px;
+  }
+}
   </style>
 </head>
 <body>
@@ -324,15 +367,98 @@
         <div class="cardHead">B. 想要製作的項目</div>
         <div class="cardBody">
           <div class="hint">可複選。下方會自動計算目前預估價格。</div>
-          <div class="optionGrid">
-            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁含顧客資料卡）</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="contract_only">定型化契約</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="hotel_profile">住宿基本資料卡</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="hotel_checkout">住宿明細確認單</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="physical_card">實體顧客資料卡</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報</label></div>
-          </div>
-        </div>
+          <div class="optionList">
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="contract_with_card">
+        定型化契約（同個網頁含顧客資料卡）
+      </label>
+    </div>
+    <a class="previewBtn" href="contract-with-card-preview.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="contract_only">
+        定型化契約
+      </label>
+    </div>
+    <a class="previewBtn" href="contract-only-preview.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="hotel_profile">
+        住宿基本資料卡
+      </label>
+    </div>
+    <a class="previewBtn" href="hotel-profile-preview.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="hotel_checkout">
+        住宿明細確認單
+      </label>
+    </div>
+    <a class="previewBtn" href="hotel-checkout-preview.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="physical_card">
+        實體顧客資料卡
+      </label>
+    </div>
+    <a class="previewBtn" href="physical-card-preview.jpg" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="poster">
+        半開契約海報
+      </label>
+    </div>
+    <a class="previewBtn" href="poster-preview.jpg" target="_blank">預覽</a>
+  </div>
+</div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="hotel_checkout">
+        住宿明細確認單
+      </label>
+    </div>
+    <a class="previewBtn" href="https://你的網址/hotel-checkout.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="physical_card">
+        實體顧客資料卡
+      </label>
+    </div>
+    <a class="previewBtn" href="https://你的網址/physical-card.html" target="_blank">預覽</a>
+  </div>
+
+  <div class="optionItem">
+    <div class="chip">
+      <label>
+        <input type="checkbox" name="modules" value="poster">
+        半開契約海報
+      </label>
+    </div>
+    <a class="previewBtn" href="https://你的網址/poster.html" target="_blank">預覽</a>
+  </div>
+</div>
       </section>
 
       <section class="card">
@@ -537,7 +663,7 @@
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxn5wt08wCMUDqtIPtG-8Pwxj1YWjITkN2i1D3ZWIm_LocWiXWOerm9y0NtDbLJg3L5/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
 
     const PRICE_MAP = {
       contract_with_card: 5000,
