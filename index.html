@@ -108,12 +108,6 @@
       gap:14px;
     }
 
-    .grid3{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
-    }
-
     .full{ grid-column:1 / -1; }
 
     .field{
@@ -130,9 +124,6 @@
     .req{ color:var(--danger); margin-left:4px; }
 
     input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="url"],
     textarea,
     select{
       width:100%;
@@ -144,6 +135,16 @@
       font:inherit;
       outline:none;
       transition:.18s ease;
+    }
+
+    input[type="file"]{
+      width:100%;
+      border:1px dashed var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:14px;
+      padding:12px 14px;
+      font:inherit;
     }
 
     textarea{
@@ -163,7 +164,8 @@
     }
 
     .chip,
-    .radioCard{
+    .radioCard,
+    .priceCard{
       position:relative;
       border:1px solid var(--line);
       border-radius:16px;
@@ -184,7 +186,7 @@
 
     .radioRow{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:10px;
     }
 
@@ -209,6 +211,27 @@
       font-weight:500;
       margin-top:3px;
       line-height:1.5;
+    }
+
+    .priceWrap{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .priceCard{
+      padding:14px;
+    }
+
+    .priceTitle{
+      font-weight:800;
+      margin-bottom:4px;
+    }
+
+    .priceAmount{
+      color:var(--accent);
+      font-size:18px;
+      font-weight:800;
     }
 
     .actions{
@@ -264,7 +287,7 @@
     .hide{ display:none !important; }
 
     @media (max-width: 760px){
-      .grid, .grid3, .optionGrid, .radioRow{ grid-template-columns:1fr; }
+      .grid, .optionGrid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
       .cardBody{ padding:16px; }
       .wrap{ padding:20px 14px 54px; }
     }
@@ -276,7 +299,7 @@
       <div class="brand">客製化系統需求表</div>
       <h1>店家需求填寫表單</h1>
       <div class="sub">
-        請店家填寫品牌資料、想要的功能項目、內容需求與視覺風格。送出後，你就可以依照表單資料快速客製化生成對應程式碼。
+        店家只要填寫想要的項目、內容方式與色系，你就能依照表單內容快速整理需求並客製化生成對應程式碼。
       </div>
     </div>
 
@@ -294,36 +317,20 @@
               <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：Kumajima Pet Salon" />
             </div>
             <div class="field">
+              <label for="storeLine">店家 LINE<span class="req">*</span></label>
+              <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@kumajima" />
+            </div>
+            <div class="field">
+              <label for="storeAddress">店家地址<span class="req">*</span></label>
+              <input id="storeAddress" name="storeAddress" type="text" required placeholder="請填寫完整地址" />
+            </div>
+            <div class="field">
               <label for="contactName">聯絡人姓名<span class="req">*</span></label>
               <input id="contactName" name="contactName" type="text" required placeholder="請填寫聯絡窗口" />
             </div>
             <div class="field">
-              <label for="email">聯絡 Email<span class="req">*</span></label>
-              <input id="email" name="email" type="email" required placeholder="example@gmail.com" />
-            </div>
-            <div class="field">
-              <label for="lineId">LINE / 官方 LINE</label>
-              <input id="lineId" name="lineId" type="text" placeholder="例如：@kumajima" />
-            </div>
-            <div class="field">
-              <label for="phone">聯絡電話</label>
-              <input id="phone" name="phone" type="tel" placeholder="例如：0912-345-678" />
-            </div>
-            <div class="field full">
-              <label for="address">店家地址</label>
-              <input id="address" name="address" type="text" placeholder="請填寫完整地址" />
-            </div>
-            <div class="field">
-              <label for="githubAccount">GitHub 帳號</label>
-              <input id="githubAccount" name="githubAccount" type="text" placeholder="例如：kumajima2025" />
-            </div>
-            <div class="field">
-              <label for="backupEmail">備用收件信箱</label>
-              <input id="backupEmail" name="backupEmail" type="email" placeholder="例如：backup@gmail.com" />
-            </div>
-            <div class="field full">
-              <label for="brandIntro">品牌簡介 / 品牌感覺補充</label>
-              <textarea id="brandIntro" name="brandIntro" placeholder="例如：想要高級、溫柔、奶油色系，服務以中小型犬為主"></textarea>
+              <label for="contactLineId">聯絡人 LINE ID<span class="req">*</span></label>
+              <input id="contactLineId" name="contactLineId" type="text" required placeholder="例如：abc123" />
             </div>
           </div>
         </div>
@@ -332,82 +339,83 @@
       <section class="card">
         <div class="cardHead">B. 想要製作的項目</div>
         <div class="cardBody">
-          <div class="hint">可複選，你之後可以直接依照這些勾選項目決定要生成哪些模組。</div>
+          <div class="hint">可複選。你後續可以依照這些勾選項目決定報價與要生成的內容。</div>
           <div class="optionGrid">
-            <div class="chip"><label><input type="checkbox" name="modules" value="customerCard">顧客資料卡</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="contract">美容定型化契約</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="hotelProfile">住宿基本資料表</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="hotelCheckout">住宿明細確認頁</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="signature">線上簽名功能</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="pdf">PDF 下載 / 產生</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="emailSend">Email 自動寄送</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="backupCopy">備份信箱副本</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="sheetSave">Google Sheets 紀錄</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="githubPages">GitHub Pages 部署版</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="mobileUI">手機版優化</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="logo">LOGO 置入</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="footerInfo">自訂頁尾資訊</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="customTerms">自訂同意條款</label></div>
-          </div>
-          <div class="field" style="margin-top:14px;">
-            <label for="otherModule">其他需求</label>
-            <textarea id="otherModule" name="otherModule" placeholder="例如：想加預約成功頁、讀取舊資料、扭蛋活動頁等"></textarea>
+            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁含顧客資料卡）</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="contract_only">定型化契約</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="hotel_profile">住宿基本資料卡</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="hotel_checkout">住宿明細確認單</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="physical_card">實體顧客資料卡</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報</label></div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="cardHead">C. 顧客資料卡 / 契約內容需求</div>
+        <div class="cardHead">C. 內容需求</div>
         <div class="cardBody">
-          <div class="grid">
+          <div class="field">
+            <label>契約內容<span class="req">*</span></label>
+            <div class="radioRow">
+              <div class="radioCard"><label><input type="radio" name="contractMode" value="template" required>照公版範本</label></div>
+              <div class="radioCard"><label><input type="radio" name="contractMode" value="custom" required>自行提供內容</label></div>
+            </div>
+          </div>
+          <div class="field full hide" id="contractCustomWrap" style="margin-top:12px;">
+            <label for="contractCustomText">契約內容補充</label>
+            <textarea id="contractCustomText" name="contractCustomText" placeholder="請填寫契約內容需求，或貼上要修改的內容"></textarea>
+          </div>
+
+          <div id="basicCardSection" class="hide" style="margin-top:16px;">
             <div class="field">
-              <label>顧客資料卡內容方式<span class="req">*</span></label>
+              <label>基本資料卡<span class="req">*</span></label>
               <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="template" required>照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="template-edit">公版小修改</label></div>
-                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="custom">自行提供內容</label></div>
+                <div class="radioCard"><label><input type="radio" name="basicCardMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="basicCardMode" value="custom">自行提供內容</label></div>
               </div>
             </div>
-            <div class="field">
-              <label>契約內容方式<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="contractMode" value="template" required>照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="contractMode" value="template-edit">公版小修改</label></div>
-                <div class="radioCard"><label><input type="radio" name="contractMode" value="custom">自行提供內容</label></div>
-              </div>
+            <div class="field full hide" id="basicCardCustomWrap" style="margin-top:12px;">
+              <label for="basicCardCustomText">基本資料卡內容補充</label>
+              <textarea id="basicCardCustomText" name="basicCardCustomText" placeholder="請填寫顧客資料卡內容需求"></textarea>
             </div>
           </div>
 
-          <div id="contentExtra" class="grid hide" style="margin-top:14px;">
-            <div class="field full">
-              <label for="editNotes">需要修改哪幾段 / 想新增什麼內容</label>
-              <textarea id="editNotes" name="editNotes" placeholder="例如：想加入遲到、晚接回、跳蚤壁蝨、攻擊行為、緊急送醫授權等條款"></textarea>
-            </div>
+          <div id="physicalCardSection" class="hide" style="margin-top:16px;">
             <div class="field">
-              <label for="hasOwnFile">是否已有自己的內容檔案</label>
-              <select id="hasOwnFile" name="hasOwnFile">
-                <option value="">請選擇</option>
-                <option value="no">沒有</option>
-                <option value="yes-word">有，Word</option>
-                <option value="yes-pdf">有，PDF</option>
-                <option value="yes-image">有，圖片</option>
-                <option value="yes-other">有，其他格式</option>
-              </select>
+              <label>實體顧客資料卡<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="physicalCardMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="physicalCardMode" value="custom">自行提供內容</label></div>
+              </div>
             </div>
+            <div class="field full hide" id="physicalCardCustomWrap" style="margin-top:12px;">
+              <label for="physicalCardCustomText">實體顧客資料卡內容補充</label>
+              <textarea id="physicalCardCustomText" name="physicalCardCustomText" placeholder="請填寫實體顧客資料卡內容需求"></textarea>
+            </div>
+          </div>
+
+          <div id="posterSection" class="hide" style="margin-top:16px;">
             <div class="field">
-              <label for="fileLink">內容檔案連結</label>
-              <input id="fileLink" name="fileLink" type="url" placeholder="可貼 Google Drive / 雲端連結" />
+              <label>半開契約海報<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="posterMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="posterMode" value="custom">自行提供內容</label></div>
+              </div>
+            </div>
+            <div class="field full hide" id="posterCustomWrap" style="margin-top:12px;">
+              <label for="posterCustomText">半開契約海報內容補充</label>
+              <textarea id="posterCustomText" name="posterCustomText" placeholder="請填寫半開海報內容需求"></textarea>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="cardHead">D. 視覺風格 / 色系</div>
+        <div class="cardHead">D. 視覺設定</div>
         <div class="cardBody">
           <div class="grid">
             <div class="field">
-              <label for="theme">想要的色系<span class="req">*</span></label>
+              <label for="theme">色系<span class="req">*</span></label>
               <select id="theme" name="theme" required>
                 <option value="">請選擇色系</option>
                 <option value="cream">奶油暖白</option>
@@ -419,116 +427,58 @@
               </select>
             </div>
             <div class="field">
-              <label for="tone">品牌感覺<span class="req">*</span></label>
-              <select id="tone" name="tone" required>
-                <option value="">請選擇品牌風格</option>
-                <option value="soft">溫柔療癒</option>
-                <option value="premium">高級精品</option>
-                <option value="cute">可愛親和</option>
-                <option value="clean">專業簡約</option>
-                <option value="japan">日系自然</option>
-              </select>
+              <label>LOGO<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="logoNeed" value="yes" required>需要</label></div>
+                <div class="radioCard"><label><input type="radio" name="logoNeed" value="no" required>不需要</label></div>
+              </div>
             </div>
             <div class="field full hide" id="customThemeWrap">
               <label for="customTheme">自訂色系說明</label>
-              <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕、深灰米白" />
+              <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕" />
             </div>
-            <div class="field full">
-              <label for="refLink">參考網站 / 參考圖片連結</label>
-              <input id="refLink" name="refLink" type="url" placeholder="可貼 IG、官網、Pinterest、雲端圖片連結" />
-            </div>
-            <div class="field">
-              <label for="hasLogo">是否提供 LOGO</label>
-              <select id="hasLogo" name="hasLogo">
-                <option value="">請選擇</option>
-                <option value="yes">有</option>
-                <option value="no">沒有</option>
-              </select>
-            </div>
-            <div class="field hide" id="logoLinkWrap">
-              <label for="logoLink">LOGO 連結</label>
-              <input id="logoLink" name="logoLink" type="url" placeholder="請貼 LOGO 雲端連結" />
+            <div class="field full hide" id="logoUploadWrap">
+              <label for="logoFile">上傳 LOGO</label>
+              <input id="logoFile" name="logoFile" type="file" accept="image/*,.pdf,.ai,.eps" />
+              <div class="hint" style="margin:6px 0 0;">目前這份表單前端已先保留上傳欄位，但你現在的 Apps Script 接收程式還不能直接收檔案。若要真的收到檔案，需另外加上檔案上傳流程。</div>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="cardHead">E. 技術設定</div>
+        <div class="cardHead">E. 操作方式</div>
         <div class="cardBody">
-          <div class="grid3">
-            <div class="field">
-              <label for="hasGithub">是否已有 GitHub 帳號</label>
-              <select id="hasGithub" name="hasGithub">
-                <option value="">請選擇</option>
-                <option value="yes">有</option>
-                <option value="no">沒有</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="needRepoHelp">是否需要協助建立 Repo</label>
-              <select id="needRepoHelp" name="needRepoHelp">
-                <option value="">請選擇</option>
-                <option value="yes">需要</option>
-                <option value="no">不需要</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="hasGoogle">是否已有 Google 帳號可使用 Apps Script</label>
-              <select id="hasGoogle" name="hasGoogle">
-                <option value="">請選擇</option>
-                <option value="yes">有</option>
-                <option value="no">沒有</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="needEmailFeature">是否需要 Gmail 自動寄送</label>
-              <select id="needEmailFeature" name="needEmailFeature">
-                <option value="">請選擇</option>
-                <option value="yes">需要</option>
-                <option value="no">不需要</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="needSheet">是否需要存進 Google Sheets</label>
-              <select id="needSheet" name="needSheet">
-                <option value="">請選擇</option>
-                <option value="yes">需要</option>
-                <option value="no">不需要</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="needDeploy">是否需要協助部署</label>
-              <select id="needDeploy" name="needDeploy">
-                <option value="">請選擇</option>
-                <option value="yes">需要</option>
-                <option value="no">不需要</option>
-              </select>
+          <div class="field">
+            <label><span class="req">*</span>請選擇</label>
+            <div class="radioRow">
+              <div class="radioCard"><label><input type="radio" name="operationMode" value="self" required>全程自行操作</label></div>
+              <div class="radioCard"><label><input type="radio" name="operationMode" value="assist" required>需要協助操作</label></div>
             </div>
           </div>
         </div>
       </section>
 
       <section class="card">
-        <div class="cardHead">F. 備註 / 交件需求</div>
+        <div class="cardHead">F. 方案價格</div>
         <div class="cardBody">
-          <div class="grid">
-            <div class="field">
-              <label for="priority">希望完成順序 / 急件程度</label>
-              <select id="priority" name="priority">
-                <option value="">請選擇</option>
-                <option value="normal">一般排單</option>
-                <option value="soon">希望盡快</option>
-                <option value="urgent">急件</option>
-              </select>
+          <div class="hint">以下為目前顯示價格。若有多項一起製作，你之後也可以再依需求另外調整報價。</div>
+          <div class="priceWrap">
+            <div class="priceCard">
+              <div class="priceTitle">定型化契約＋顧客資料卡</div>
+              <div class="priceAmount">$5000</div>
             </div>
-            <div class="field">
-              <label for="budget">預算區間</label>
-              <input id="budget" name="budget" type="text" placeholder="例如：3000-8000" />
+            <div class="priceCard">
+              <div class="priceTitle">定型化契約</div>
+              <div class="priceAmount">$3000</div>
             </div>
-            <div class="field full">
-              <label for="notes">其他特殊需求</label>
-              <textarea id="notes" name="notes" placeholder="請填寫任何想補充的內容"></textarea>
+            <div class="priceCard">
+              <div class="priceTitle">住宿基本資料卡</div>
+              <div class="priceAmount">$3000</div>
+            </div>
+            <div class="priceCard">
+              <div class="priceTitle">住宿明細確認單</div>
+              <div class="priceAmount">$3000</div>
             </div>
           </div>
         </div>
@@ -546,18 +496,22 @@
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbznnFvCjUcADL5pm2XFAx90ZVsZs5Sj8LqSxtp_npwIfzSw8afz6jqg9BBR2RID9iSS/exec";
+    const GAS_URL = "https://script.google.com/macros/s/請換成你的WebApp網址/exec";
 
     const form = document.getElementById('intakeForm');
     const statusBox = document.getElementById('status');
     const previewBtn = document.getElementById('previewBtn');
     const theme = document.getElementById('theme');
     const customThemeWrap = document.getElementById('customThemeWrap');
-    const hasLogo = document.getElementById('hasLogo');
-    const logoLinkWrap = document.getElementById('logoLinkWrap');
-    const customerCardModes = document.querySelectorAll('input[name="customerCardMode"]');
-    const contractModes = document.querySelectorAll('input[name="contractMode"]');
-    const contentExtra = document.getElementById('contentExtra');
+    const logoNeedEls = document.querySelectorAll('input[name="logoNeed"]');
+    const logoUploadWrap = document.getElementById('logoUploadWrap');
+    const contractCustomWrap = document.getElementById('contractCustomWrap');
+    const basicCardSection = document.getElementById('basicCardSection');
+    const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
+    const physicalCardSection = document.getElementById('physicalCardSection');
+    const physicalCardCustomWrap = document.getElementById('physicalCardCustomWrap');
+    const posterSection = document.getElementById('posterSection');
+    const posterCustomWrap = document.getElementById('posterCustomWrap');
 
     function showStatus(type, message){
       statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
@@ -574,91 +528,137 @@
       return el ? el.value : '';
     }
 
-    function collectData(){
-      const fd = new FormData(form);
-      const modules = fd.getAll('modules');
-
-      return {
-        submittedAt: new Date().toISOString(),
-        storeInfo: {
-          storeName: fd.get('storeName') || '',
-          storeNameEn: fd.get('storeNameEn') || '',
-          contactName: fd.get('contactName') || '',
-          email: fd.get('email') || '',
-          lineId: fd.get('lineId') || '',
-          phone: fd.get('phone') || '',
-          address: fd.get('address') || '',
-          githubAccount: fd.get('githubAccount') || '',
-          backupEmail: fd.get('backupEmail') || '',
-          brandIntro: fd.get('brandIntro') || ''
-        },
-        modules,
-        moduleFlags: {
-          customerCard: modules.includes('customerCard'),
-          contract: modules.includes('contract'),
-          hotelProfile: modules.includes('hotelProfile'),
-          hotelCheckout: modules.includes('hotelCheckout'),
-          signature: modules.includes('signature'),
-          pdf: modules.includes('pdf'),
-          emailSend: modules.includes('emailSend'),
-          backupCopy: modules.includes('backupCopy'),
-          sheetSave: modules.includes('sheetSave'),
-          githubPages: modules.includes('githubPages'),
-          mobileUI: modules.includes('mobileUI'),
-          logo: modules.includes('logo'),
-          footerInfo: modules.includes('footerInfo'),
-          customTerms: modules.includes('customTerms')
-        },
-        otherModule: fd.get('otherModule') || '',
-        contentMode: {
-          customerCardMode: getRadioValue('customerCardMode'),
-          contractMode: getRadioValue('contractMode'),
-          editNotes: fd.get('editNotes') || '',
-          hasOwnFile: fd.get('hasOwnFile') || '',
-          fileLink: fd.get('fileLink') || ''
-        },
-        design: {
-          theme: fd.get('theme') || '',
-          tone: fd.get('tone') || '',
-          customTheme: fd.get('customTheme') || '',
-          refLink: fd.get('refLink') || '',
-          hasLogo: fd.get('hasLogo') || '',
-          logoLink: fd.get('logoLink') || ''
-        },
-        tech: {
-          hasGithub: fd.get('hasGithub') || '',
-          needRepoHelp: fd.get('needRepoHelp') || '',
-          hasGoogle: fd.get('hasGoogle') || '',
-          needEmailFeature: fd.get('needEmailFeature') || '',
-          needSheet: fd.get('needSheet') || '',
-          needDeploy: fd.get('needDeploy') || ''
-        },
-        delivery: {
-          priority: fd.get('priority') || '',
-          budget: fd.get('budget') || '',
-          notes: fd.get('notes') || ''
-        }
-      };
+    function getModules(){
+      return Array.from(document.querySelectorAll('input[name="modules"]:checked')).map(el => el.value);
     }
 
     function toggleCustomTheme(){
       customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
     }
 
-    function toggleLogoLink(){
-      logoLinkWrap.classList.toggle('hide', hasLogo.value !== 'yes');
+    function toggleLogoUpload(){
+      logoUploadWrap.classList.toggle('hide', getRadioValue('logoNeed') !== 'yes');
     }
 
-    function toggleContentExtra(){
-      const needExtra = ['template-edit','custom'].includes(getRadioValue('customerCardMode'))
-        || ['template-edit','custom'].includes(getRadioValue('contractMode'));
-      contentExtra.classList.toggle('hide', !needExtra);
+    function toggleContractCustom(){
+      contractCustomWrap.classList.toggle('hide', getRadioValue('contractMode') !== 'custom');
     }
 
+    function toggleBasicCardSection(){
+      const modules = getModules();
+      const show = !modules.includes('contract_only');
+      basicCardSection.classList.toggle('hide', !show);
+      if(!show){
+        document.querySelectorAll('input[name="basicCardMode"]').forEach(el => el.checked = false);
+        document.getElementById('basicCardCustomText').value = '';
+        basicCardCustomWrap.classList.add('hide');
+      }
+    }
+
+    function toggleBasicCardCustom(){
+      basicCardCustomWrap.classList.toggle('hide', getRadioValue('basicCardMode') !== 'custom');
+    }
+
+    function togglePhysicalCardSection(){
+      const show = getModules().includes('physical_card');
+      physicalCardSection.classList.toggle('hide', !show);
+      if(!show){
+        document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => el.checked = false);
+        document.getElementById('physicalCardCustomText').value = '';
+        physicalCardCustomWrap.classList.add('hide');
+      }
+    }
+
+    function togglePhysicalCardCustom(){
+      physicalCardCustomWrap.classList.toggle('hide', getRadioValue('physicalCardMode') !== 'custom');
+    }
+
+    function togglePosterSection(){
+      const show = getModules().includes('poster');
+      posterSection.classList.toggle('hide', !show);
+      if(!show){
+        document.querySelectorAll('input[name="posterMode"]').forEach(el => el.checked = false);
+        document.getElementById('posterCustomText').value = '';
+        posterCustomWrap.classList.add('hide');
+      }
+    }
+
+    function togglePosterCustom(){
+      posterCustomWrap.classList.toggle('hide', getRadioValue('posterMode') !== 'custom');
+    }
+
+    function syncContentSections(){
+      toggleContractCustom();
+      toggleBasicCardSection();
+      toggleBasicCardCustom();
+      togglePhysicalCardSection();
+      togglePhysicalCardCustom();
+      togglePosterSection();
+      togglePosterCustom();
+    }
+
+    function collectData(){
+      const modules = getModules();
+      const logoFile = document.getElementById('logoFile').files[0];
+
+      return {
+        submittedAt: new Date().toISOString(),
+        storeInfo: {
+          storeName: form.storeName.value.trim(),
+          storeNameEn: form.storeNameEn.value.trim(),
+          storeLine: form.storeLine.value.trim(),
+          storeAddress: form.storeAddress.value.trim(),
+          contactName: form.contactName.value.trim(),
+          contactLineId: form.contactLineId.value.trim()
+        },
+        modules,
+        content: {
+          contractMode: getRadioValue('contractMode'),
+          contractCustomText: form.contractCustomText.value.trim(),
+          basicCardMode: getRadioValue('basicCardMode'),
+          basicCardCustomText: form.basicCardCustomText.value.trim(),
+          physicalCardMode: getRadioValue('physicalCardMode'),
+          physicalCardCustomText: form.physicalCardCustomText.value.trim(),
+          posterMode: getRadioValue('posterMode'),
+          posterCustomText: form.posterCustomText.value.trim()
+        },
+        design: {
+          theme: form.theme.value,
+          customTheme: form.customTheme.value.trim(),
+          logoNeed: getRadioValue('logoNeed'),
+          logoFileName: logoFile ? logoFile.name : '',
+          logoFileType: logoFile ? logoFile.type : '',
+          logoFileSize: logoFile ? logoFile.size : ''
+        },
+        operation: {
+          mode: getRadioValue('operationMode')
+        },
+        pricing: {
+          combo_contract_with_card: 5000,
+          contract_only: 3000,
+          hotel_profile: 3000,
+          hotel_checkout: 3000
+        }
+      };
+    }
+
+    document.querySelectorAll('input[name="modules"]').forEach(el => {
+      el.addEventListener('change', syncContentSections);
+    });
+    document.querySelectorAll('input[name="contractMode"]').forEach(el => {
+      el.addEventListener('change', toggleContractCustom);
+    });
+    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => {
+      el.addEventListener('change', toggleBasicCardCustom);
+    });
+    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => {
+      el.addEventListener('change', togglePhysicalCardCustom);
+    });
+    document.querySelectorAll('input[name="posterMode"]').forEach(el => {
+      el.addEventListener('change', togglePosterCustom);
+    });
+    logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoUpload));
     theme.addEventListener('change', toggleCustomTheme);
-    hasLogo.addEventListener('change', toggleLogoLink);
-    customerCardModes.forEach(el => el.addEventListener('change', toggleContentExtra));
-    contractModes.forEach(el => el.addEventListener('change', toggleContentExtra));
 
     previewBtn.addEventListener('click', () => {
       hideStatus();
@@ -672,8 +672,8 @@
       setTimeout(() => {
         hideStatus();
         toggleCustomTheme();
-        toggleLogoLink();
-        toggleContentExtra();
+        toggleLogoUpload();
+        syncContentSections();
       }, 0);
     });
 
@@ -715,8 +715,8 @@
     });
 
     toggleCustomTheme();
-    toggleLogoLink();
-    toggleContentExtra();
+    toggleLogoUpload();
+    syncContentSections();
   </script>
 </body>
 </html>
