@@ -507,14 +507,15 @@
             <div class="priceCard">
               <div class="priceTitle">半開海報契約設計（照公版範本）</div>
               <div class="priceAmount">$1000</div>
-              <div class="hint">含印刷費用 $383</div>
-</div>
-<div class="priceCard">
-  <div class="priceTitle">半開海報契約設計（自行提供內容）</div>
-  <div class="priceAmount">$1500</div>
-  <div class="hint">含印刷費用 $383</div>
+              <div class="hint" style="margin:6px 0 0;">含印刷費用 $383</div>
+            </div>
+            <div class="priceCard">
+              <div class="priceTitle">半開海報契約設計（自行提供內容）</div>
+              <div class="priceAmount">$1500</div>
+              <div class="hint" style="margin:6px 0 0;">含印刷費用 $383</div>
             </div>
           </div>
+
           <div class="totalCard">
             <div class="totalLabel">預估總價</div>
             <div class="totalValue" id="totalPrice">$0</div>
@@ -536,17 +537,18 @@
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxn5wt08wCMUDqtIPtG-8Pwxj1YWjITkN2i1D3ZWIm_LocWiXWOerm9y0NtDbLJg3L5/exec";
+
     const PRICE_MAP = {
-  contract_with_card: 5000,
-  contract_only: 3000,
-  hotel_profile: 3000,
-  hotel_checkout: 3000,
-  physical_card_template: 1500,
-  physical_card_custom: 2000,
-  poster_template: 1000,
-  poster_custom: 1500
-};
+      contract_with_card: 5000,
+      contract_only: 3000,
+      hotel_profile: 3000,
+      hotel_checkout: 3000,
+      physical_card_template: 1500,
+      physical_card_custom: 2000,
+      poster_template: 1000,
+      poster_custom: 1500
+    };
 
     const form = document.getElementById('intakeForm');
     const statusBox = document.getElementById('status');
@@ -586,7 +588,12 @@
     }
 
     function getModules(){
-      return Array.from(document.querySelectorAll('input[name="modules"]:checked')).map(el => el.value);
+      return Array.from(document.querySelectorAll('input[name="modules"]:checked, input[name="modules"]:checked')).map(el => el.value);
+    }
+
+    // 修正上面 selector，避免瀏覽器相容問題
+    function getModules(){
+      return Array.from(document.querySelectorAll('input[name="modules"]:checked'.replace(':checked', '') + ':checked')).map(el => el.value);
     }
 
     function toggleCustomTheme(){
@@ -603,7 +610,7 @@
 
     function toggleBasicCardSection(){
       const modules = getModules();
-      const show = !modules.includes('contract_only');
+      const show = modules.includes('contract_with_card');
       basicCardSection.classList.toggle('hide', !show);
       if(!show){
         document.querySelectorAll('input[name="basicCardMode"]').forEach(el => el.checked = false);
@@ -687,6 +694,16 @@
       return '$' + Number(num || 0).toLocaleString('zh-Hant-TW');
     }
 
+    function getPhysicalCardPrice(){
+      const mode = getRadioValue('physicalCardMode');
+      return mode === 'custom' ? PRICE_MAP.physical_card_custom : PRICE_MAP.physical_card_template;
+    }
+
+    function getPosterPrice(){
+      const mode = getRadioValue('posterMode');
+      return mode === 'custom' ? PRICE_MAP.poster_custom : PRICE_MAP.poster_template;
+    }
+
     function updatePrice(){
       const modules = getModules();
       let total = 0;
@@ -694,30 +711,35 @@
 
       modules.forEach(key => {
         if(key === 'physical_card'){
-          const mode = getRadioValue('physicalCardMode');
-          const amount = PRICE_MAP[mode === 'custom' ? 'physical_card_custom' : 'physical_card_template'] || 0;
-          total += amount;
-          selectedText.push(mode === 'custom' ? '實體顧客資料卡（自行提供內容）' : '實體顧客資料卡（照公版範本）');
-        else if(key === 'poster'){
-  const mode = getRadioValue('posterMode');
-  total += PRICE_MAP[mode === 'custom' ? 'poster_custom' : 'poster_template'] || 0;
-}
-else{
-  total += PRICE_MAP[key] || 0;
-}
+          total += getPhysicalCardPrice();
+          selectedText.push(
+            getRadioValue('physicalCardMode') === 'custom'
+              ? '實體顧客資料卡（自行提供內容）'
+              : '實體顧客資料卡（照公版範本）'
+          );
+        }else if(key === 'poster'){
+          total += getPosterPrice();
+          selectedText.push(
+            getRadioValue('posterMode') === 'custom'
+              ? '半開契約海報（自行提供內容）'
+              : '半開契約海報（照公版範本）'
+          );
+        }else{
+          total += PRICE_MAP[key] || 0;
           const map = {
             contract_with_card: '定型化契約＋顧客資料卡',
             contract_only: '定型化契約',
             hotel_profile: '住宿基本資料卡',
-            hotel_checkout: '住宿明細確認單',
-            poster: '半開契約海報'
+            hotel_checkout: '住宿明細確認單'
           };
           selectedText.push(map[key] || key);
         }
       });
 
       totalPrice.textContent = formatMoney(total);
-      totalDesc.textContent = selectedText.length ? '目前勾選：' + selectedText.join('、') : '請勾選上方製作項目後自動計算。';
+      totalDesc.textContent = selectedText.length
+        ? '目前勾選：' + selectedText.join('、')
+        : '請勾選上方製作項目後自動計算。';
     }
 
     function syncContentSections(){
@@ -739,9 +761,12 @@ else{
     function collectData(){
       const modules = getModules();
       let total = 0;
+
       modules.forEach(key => {
         if(key === 'physical_card'){
-          total += PRICE_MAP[getRadioValue('physicalCardMode') === 'custom' ? 'physical_card_custom' : 'physical_card_template'] || 0;
+          total += getPhysicalCardPrice();
+        }else if(key === 'poster'){
+          total += getPosterPrice();
         }else{
           total += PRICE_MAP[key] || 0;
         }
@@ -788,20 +813,63 @@ else{
           hotel_checkout: 3000,
           physical_card_template: 1500,
           physical_card_custom: 2000,
-          poster: 1000,
+          poster_template: 1000,
+          poster_custom: 1500,
           total: total
         }
       };
     }
 
-    document.querySelectorAll('input[name="modules"]').forEach(el => el.addEventListener('change', syncContentSections));
-    document.querySelectorAll('input[name="contractMode"]').forEach(el => el.addEventListener('change', () => { toggleContractCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => el.addEventListener('change', () => { toggleBasicCardCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => el.addEventListener('change', () => { toggleHotelProfileCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => el.addEventListener('change', () => { toggleHotelCheckoutCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => el.addEventListener('change', () => { togglePhysicalCardCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="posterMode"]').forEach(el => el.addEventListener('change', () => { togglePosterCustom(); updatePrice(); }));
-    document.querySelectorAll('input[name="operationMode"]').forEach(el => el.addEventListener('change', updateOperationHint));
+    document.querySelectorAll('input[name="modules"]').forEach(el => {
+      el.addEventListener('change', syncContentSections);
+    });
+
+    document.querySelectorAll('input[name="contractMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        toggleContractCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        toggleBasicCardCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        toggleHotelProfileCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        toggleHotelCheckoutCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        togglePhysicalCardCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="posterMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        togglePosterCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="operationMode"]').forEach(el => {
+      el.addEventListener('change', updateOperationHint);
+    });
+
     logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoHelp));
     theme.addEventListener('change', toggleCustomTheme);
 
@@ -840,10 +908,18 @@ else{
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+
         const text = await res.text();
         let result = {};
-        try{ result = JSON.parse(text); }catch(_){ result = { raw:text }; }
-        if(!res.ok || result.ok === false) throw new Error(result.error || '送出失敗');
+        try{
+          result = JSON.parse(text);
+        }catch(_){
+          result = { raw:text };
+        }
+
+        if(!res.ok || result.ok === false){
+          throw new Error(result.error || '送出失敗');
+        }
 
         showStatus('ok', '表單已成功送出，資料已提交。若有需要 LOGO，請記得再傳送到官方 LINE。');
         form.reset();
