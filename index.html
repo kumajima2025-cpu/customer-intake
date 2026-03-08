@@ -931,42 +931,42 @@
     }
 
     function updatePrice(){
-      const modules = getModules();
-      let total = 0;
-      const selectedText = [];
+  const modules = getModules();
+  let total = 0;
+  const selectedText = [];
 
-      modules.forEach(key => {
-        if(key === 'physical_card'){
-          total += getPhysicalCardPrice();
-          selectedText.push(
-            getRadioValue('physicalCardMode') === 'custom'
-              ? '實體顧客資料卡（自行提供內容）'
-              : '實體顧客資料卡（照公版範本）'
-          );
-        }else if(key === 'poster'){
-          total += getPosterPrice();
-          selectedText.push(
-            getRadioValue('posterMode') === 'custom'
-              ? '半開契約海報（自行提供內容）'
-              : '半開契約海報（照公版範本）'
-          );
-        }else{
-          total += PRICE_MAP[key] || 0;
-          const map = {
-            contract_with_card: '定型化契約＋顧客資料卡',
-            contract_only: '定型化契約',
-            hotel_profile: '住宿基本資料卡',
-            hotel_checkout: '住宿明細確認單'
-          };
-          selectedText.push(map[key] || key);
-        }
-      });
+  modules.forEach(key => {
+    if(key === 'physical_card'){
+      total += getPhysicalCardPrice();
+      selectedText.push(
+        getRadioValue('physicalCardMode') === 'custom'
+          ? '實體顧客資料卡（自行提供內容）'
+          : '實體顧客資料卡（照公版範本）'
+      );
+    }else if(key === 'poster'){
+      total += getPosterPrice();
+      selectedText.push(
+        getRadioValue('posterMode') === 'custom'
+          ? '半開契約海報（自行提供內容）'
+          : '半開契約海報（照公版範本）'
+      );
+    }else{
+      total += PRICE_MAP[key] || 0;
+      const map = {
+        contract_with_card: '定型化契約＋顧客資料卡',
+        contract_only: '定型化契約',
+        hotel_profile: '住宿基本資料卡',
+        hotel_checkout: '住宿明細確認單'
+      };
+      selectedText.push(map[key] || key);
+    }
+  });
 
-<div class="totalCard">
-  <div class="totalLabel">預估總價</div>
-  <div class="totalValue" id="totalPrice">$0</div>
-  <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
-</div>
+  totalPrice.textContent = formatMoney(total);
+  totalDesc.textContent = selectedText.length
+    ? '目前勾選：' + selectedText.join('、')
+    : '請勾選上方製作項目後自動計算。';
+}
       
 
     function syncContentSections(){
