@@ -303,12 +303,97 @@
   font-weight:800;
   text-decoration:none;
   transition:.18s ease;
+  cursor:pointer;
 }
 
 .previewBtn:hover{
   border-color:var(--accent-2);
   background:#FFFCF7;
   transform:translateY(-1px);
+}
+
+.previewModal{
+  position:fixed;
+  inset:0;
+  background:rgba(33, 26, 20, .45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:9999;
+}
+
+.previewModal.show{
+  display:flex;
+}
+
+.previewPanel{
+  width:min(1100px, 100%);
+  height:min(88vh, 900px);
+  background:#fff;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.18);
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+}
+
+.previewHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:#FCF8F2;
+}
+
+.previewTitle{
+  font-weight:800;
+  font-size:16px;
+}
+
+.previewClose{
+  border:0;
+  background:#EFE6DA;
+  color:var(--text);
+  border-radius:999px;
+  padding:10px 14px;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.previewBody{
+  flex:1;
+  background:#fff;
+}
+
+.previewFrame{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+.previewImageWrap{
+  width:100%;
+  height:100%;
+  overflow:auto;
+  background:#F8F4EE;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:20px;
+}
+
+.previewImage{
+  max-width:100%;
+  height:auto;
+  display:block;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
 
 @media (max-width:760px){
@@ -318,6 +403,11 @@
 
   .previewBtn{
     min-height:46px;
+  }
+
+  .previewPanel{
+    height:min(90vh, 900px);
+    border-radius:18px;
   }
 }
   </style>
@@ -368,16 +458,6 @@
         <div class="cardBody">
           <div class="hint">可複選。下方會自動計算目前預估價格。</div>
           <div class="optionList">
-  <div class="optionItem">
-    <div class="chip">
-      <label>
-        <input type="checkbox" name="modules" value="contract_with_card">
-        定型化契約（同個網頁含顧客資料卡）
-      </label>
-    </div>
-    <a class="previewBtn" href="contract-with-card-preview.html" target="_blank">預覽</a>
-  </div>
-
  <div class="optionList">
 
   <div class="optionItem">
@@ -387,9 +467,12 @@
         定型化契約（同個網頁含顧客資料卡）
       </label>
     </div>
-    <a class="previewBtn" href="contract-with-card-preview.html" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="page"
+      data-preview-title="定型化契約（同個網頁含顧客資料卡）"
+      data-preview-src="contract-with-card-preview.html">
       看範例
-    </a>
+    </button>
   </div>
 
   <div class="optionItem">
@@ -399,9 +482,12 @@
         定型化契約
       </label>
     </div>
-    <a class="previewBtn" href="contract-only-preview.html" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="page"
+      data-preview-title="定型化契約"
+      data-preview-src="contract-only-preview.html">
       看範例
-    </a>
+    </button>
   </div>
 
   <div class="optionItem">
@@ -411,9 +497,12 @@
         住宿基本資料卡
       </label>
     </div>
-    <a class="previewBtn" href="hotel-profile-preview.html" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="page"
+      data-preview-title="住宿基本資料卡"
+      data-preview-src="hotel-profile-preview.html">
       看範例
-    </a>
+    </button>
   </div>
 
   <div class="optionItem">
@@ -423,9 +512,12 @@
         住宿明細確認單
       </label>
     </div>
-    <a class="previewBtn" href="hotel-checkout-preview.html" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="page"
+      data-preview-title="住宿明細確認單"
+      data-preview-src="hotel-checkout-preview.html">
       看範例
-    </a>
+    </button>
   </div>
 
   <div class="optionItem">
@@ -435,9 +527,12 @@
         實體顧客資料卡
       </label>
     </div>
-    <a class="previewBtn" href="physical-card-preview.jpg" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="image"
+      data-preview-title="實體顧客資料卡"
+      data-preview-src="physical-card-preview.jpg">
       看範例
-    </a>
+    </button>
   </div>
 
   <div class="optionItem">
@@ -447,11 +542,13 @@
         半開契約海報
       </label>
     </div>
-    <a class="previewBtn" href="poster-preview.jpg" target="_blank">
+    <button type="button" class="previewBtn"
+      data-preview-type="image"
+      data-preview-title="半開契約海報"
+      data-preview-src="poster-preview.jpg">
       看範例
-    </a>
+    </button>
   </div>
-
 </div>
       </section>
 
@@ -653,7 +750,16 @@
 
       <div id="status" class="status"></div>
       <div class="footerNote">此頁可直接放上 GitHub Pages。把下方 JavaScript 的 GAS_URL 改成你的 Apps Script Web App 網址即可開始收單。</div>
-    </form>
+    <div class="previewModal" id="previewModal">
+  <div class="previewPanel">
+    <div class="previewHead">
+      <div class="previewTitle" id="previewTitle">預覽</div>
+      <button type="button" class="previewClose" id="previewClose">關閉</button>
+    </div>
+    <div class="previewBody" id="previewBody"></div>
+  </div>
+</div>
+          </form>
   </div>
 
   <script>
@@ -1052,6 +1158,61 @@
     toggleCustomTheme();
     toggleLogoHelp();
     syncContentSections();
+const previewModal = document.getElementById('previewModal');
+const previewTitle = document.getElementById('previewTitle');
+const previewBody = document.getElementById('previewBody');
+const previewClose = document.getElementById('previewClose');
+
+function openPreview(type, title, src){
+  previewTitle.textContent = title || '預覽';
+
+  if(type === 'image'){
+    previewBody.innerHTML = `
+      <div class="previewImageWrap">
+        <img class="previewImage" src="${src}" alt="${title}">
+      </div>
+    `;
+  }else{
+    previewBody.innerHTML = `
+      <iframe class="previewFrame" src="${src}" title="${title}"></iframe>
+    `;
+  }
+
+  previewModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview(){
+  previewModal.classList.remove('show');
+  previewBody.innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.previewBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    openPreview(
+      btn.dataset.previewType,
+      btn.dataset.previewTitle,
+      btn.dataset.previewSrc
+    );
+  });
+});
+
+previewClose.addEventListener('click', closePreview);
+
+previewModal.addEventListener('click', (e) => {
+  if(e.target === previewModal){
+    closePreview();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && previewModal.classList.contains('show')){
+    closePreview();
+  }
+});
+  
+  
   </script>
 </body>
 </html>
