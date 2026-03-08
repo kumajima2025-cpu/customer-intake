@@ -1210,12 +1210,32 @@ return {
           throw new Error(result.error || '送出失敗');
         }
 
-        showStatus(
-  'ok',
-  `表單已成功送出 ✔️
+       const modules = payload.modules || []
+
+const moduleMap = {
+  contract_with_card:"定型化契約＋顧客資料卡",
+  contract_only:"定型化契約",
+  hotel_profile:"住宿基本資料卡",
+  hotel_checkout:"住宿明細確認單",
+  physical_card:"實體顧客資料卡",
+  poster:"半開契約海報"
+}
+
+const moduleText = modules.map(m=>moduleMap[m]||m).join("、")
+
+showStatus(
+'ok',
+`表單已成功送出 ✔️
+
 訂單編號：${payload.orderId}
+
+本次需求：
+${moduleText}
+
+預估總價：${formatMoney(payload.pricing.total)}
+
 請將 LOGO 傳送至 LINE 並備註此訂單編號。`
-);
+)
         form.reset();
       } catch(err){
         console.error(err);
