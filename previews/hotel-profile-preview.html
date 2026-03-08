@@ -281,36 +281,32 @@ vertical-align:middle;
 <div class="logoCircle">LOGO</div>
 
 <div class="brand">OO寵物 ABC123</div>
-
-</div>
-
 <div class="barTitle">— 基本資料表 —</div>
 <div class="hint">請於住宿前填寫完成本資料表！</div>
 
 <div class="card">
-
 <div class="secTitle">飼主資料</div>
 
 <div class="grid">
 
 <div>
 <label>主要聯絡人</label>
-<input placeholder="例：陳小美">
+<input id="owner_name" placeholder="例：陳小美" required />
 </div>
 
 <div>
 <label>手機號碼</label>
-<input placeholder="09xxxxxxxx">
+<input id="owner_phone" inputmode="tel" placeholder="09xxxxxxxx" required />
 </div>
 
 <div>
 <label>Email</label>
-<input placeholder="you@example.com">
+<input id="owner_email" inputmode="email" placeholder="you@example.com" />
 </div>
 
 <div>
 <label>現居地址</label>
-<input placeholder="縣市／區／路／號">
+<input id="owner_address" placeholder="縣市／區／路／號（可留空）" />
 </div>
 
 </div>
@@ -323,33 +319,32 @@ vertical-align:middle;
 
 <div>
 <label>備用聯絡人</label>
-<input placeholder="例：王小名">
+<input id="backup_name" placeholder="例：王小名" />
 </div>
 
 <div>
 <label>聯絡人手機</label>
-<input placeholder="09xxxxxxxx">
+<input id="backup_phone" inputmode="tel" placeholder="09xxxxxxxx" />
 </div>
 
 </div>
-
 </div>
+
 
 <div class="card">
-
 <div class="secTitle">寵物資料</div>
 
 <div class="grid3">
 
 <div>
 <label>名字</label>
-<input placeholder="例：Lucky">
+<input id="pet_name" placeholder="例：Lucky" required />
 </div>
 
 <div>
 <label>性別</label>
-<select>
-<option>請選擇</option>
+<select id="pet_sex" required>
+<option value="">請選擇</option>
 <option>男</option>
 <option>女</option>
 </select>
@@ -357,51 +352,121 @@ vertical-align:middle;
 
 <div>
 <label>品種</label>
-<input placeholder="例：貴賓">
+<input id="pet_breed" placeholder="例：貴賓" required />
 </div>
 
 <div>
 <label>毛色</label>
-<input placeholder="例：白色">
+<input id="pet_color" placeholder="例：白色／奶油色／黑白..." />
 </div>
 
 <div>
 <label>出生日期</label>
-<input placeholder="2021/02/14">
+<input id="pet_birth_date" placeholder="例：2021/02/14" />
+<div class="small">格式：YYYY/MM/DD（可直接輸入8碼數字）</div>
 </div>
 
 <div>
 <label>是否已絕育</label>
-<select>
-<option>請選擇</option>
+<select id="pet_neutered">
+<option value="">請選擇</option>
 <option>已絕育</option>
 <option>未絕育</option>
 </select>
 </div>
 
+<div>
+<label>體外驅蟲時間</label>
+<input id="pet_deworm_date" placeholder="例：2023/06/11" />
+<div class="small">格式：YYYY/MM/DD（可直接輸入8碼數字）</div>
+</div>
+
+<div>
+<label>體外驅蟲方式</label>
+<select id="pet_deworm_way">
+<option value="">請選擇</option>
+<option>滴劑</option>
+<option>口服</option>
+<option>無</option>
+</select>
+
+<div class="small" style="margin-top:6px;line-height:1.4;color:#C0392B;">
+*飼養寵物皆須施打晶片、絕育並按時施打狂犬病疫苗*
 </div>
 
 </div>
 
-<div class="card">
+</div>
 
-<div class="secTitle">飼主簽名</div>
 
-<div class="sigBox">
-<div class="small">請在下方簽名</div>
-<canvas></canvas>
+<div style="height:10px"></div>
 
-<div class="btns">
-<button class="ghost">清除簽名</button>
+<div class="grid">
+
+<div>
+<label>晶片號碼</label>
+<input id="pet_chip" placeholder="例：900xxxxxxx（可留空）" />
+</div>
+
+<div>
+<label>狂犬疫苗注射時間</label>
+<input id="pet_rabies" placeholder="例：2023/06/11" />
 </div>
 
 </div>
 
+
+<div style="height:10px"></div>
+
+<label>寵物生理狀況（目視）</label>
+
+<div class="row" id="phys_row">
+
+<label class="chip">
+<input type="radio" name="phys_status" value="正常" checked>
+正常
+</label>
+
+<label class="chip">
+<input type="radio" name="phys_status" value="異常">
+異常
+</label>
+
 </div>
 
-<div class="footer">
-送出即表示您所填資料為真，並同意住宿期間店家依照安全與衛生原則進行照護。
+
+<div class="grid" style="margin-top:8px">
+
+<div>
+<label>異常狀況說明</label>
+<input id="phys_abnormal_note" placeholder="若選異常，請簡述（選填）" />
+<div class="small">若上方選「異常」，請在此補充說明。</div>
 </div>
+
+</div>
+
+
+<div style="height:10px"></div>
+
+<label>特殊疾病 / 舊疾（可複選）</label>
+
+<div class="row" id="disease_row">
+
+<label class="chip"><input type="checkbox" value="心臟病">心臟病</label>
+<label class="chip"><input type="checkbox" value="氣喘">氣喘</label>
+<label class="chip"><input type="checkbox" value="氣管塌陷">氣管塌陷</label>
+<label class="chip"><input type="checkbox" value="關節問題">關節問題</label>
+<label class="chip"><input type="checkbox" value="糖尿病">糖尿病</label>
+<label class="chip"><input type="checkbox" value="白內障">白內障</label>
+<label class="chip"><input type="checkbox" value="癲癇">癲癇</label>
+<label class="chip"><input type="checkbox" value="骨折">骨折</label>
+<label class="chip"><input type="checkbox" value="懷孕">懷孕</label>
+<label class="chip"><input type="checkbox" value="腸炎">腸炎</label>
+<label class="chip"><input type="checkbox" value="血便">血便</label>
+<label class="chip"><input type="checkbox" value="血尿">血尿</label>
+<label class="chip"><input type="checkbox" value="外傷未癒合">外傷未癒合</label>
+<label class="chip"><input type="checkbox" value="其它">其它</label>
+
 
 </div>
 
