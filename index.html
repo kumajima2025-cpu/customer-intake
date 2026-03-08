@@ -725,6 +725,12 @@
             <div class="totalValue" id="totalPrice">$0</div>
             <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
           </div>
+              <div class="footerNote" style="margin-top:14px;line-height:1.8;">
+      <strong>製作流程</strong><br>
+      1. 送出需求表後，請先加入 LINE 確認需求內容。<br>
+      2. 確認製作細節與報價後，會提供匯款資訊。<br>
+      3. 完成匯款後，才會提供設定步驟與客製程式碼。
+    </div>
         </div>
       </section>
 
@@ -956,18 +962,12 @@
         }
       });
 
-      totalPrice.textContent = formatMoney(total);
-      totalDesc.textContent = selectedText.length
-        ? '目前勾選：' + selectedText.join('、')
-        : '請勾選上方製作項目後自動計算。';
-      
-    }
-    <div class="footerNote" style="margin-top:14px;line-height:1.8;">
-  <strong>流程說明</strong><br>
-  送出需求表後，請先加入LINE確認需求內容。<br>
-  確認製作細節與報價後，會提供匯款資訊。<br>
-  完成匯款後，才會提供設定步驟與客製程式碼。
+<div class="totalCard">
+  <div class="totalLabel">預估總價</div>
+  <div class="totalValue" id="totalPrice">$0</div>
+  <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
 </div>
+      
 
     function syncContentSections(){
       toggleContractCustom();
