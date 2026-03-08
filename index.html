@@ -748,7 +748,7 @@
      <div class="footerNote" style="margin-top:10px;line-height:1.6;">
 製作與設計 © Elaine Wan<br>
 本系統為個人開發之客製化表單與流程設計，包含版面設計、功能邏輯與使用流程。<br>
-請勿未經授權擅自複製、散布或轉售本系統內容，感謝你尊重創作者的心♥。
+請勿未經授權擅自複製、散布或轉售本系統內容，感謝你尊重創作者的心♥
 </div>
 
       <div class="previewModal" id="previewModal">
@@ -764,6 +764,18 @@
   </div>
 
   <script>
+    function generateOrderId(){
+
+  const d = new Date()
+
+  const y = d.getFullYear()
+  const m = String(d.getMonth()+1).padStart(2,"0")
+  const day = String(d.getDate()).padStart(2,"0")
+
+  const rand = Math.floor(Math.random()*9000)+1000
+
+  return `EW-${y}${m}${day}-${rand}`
+}
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
 
     const PRICE_MAP = {
@@ -998,8 +1010,11 @@
         }
       });
 
-      return {
-        submittedAt: new Date().toISOString(),
+const orderId = generateOrderId()
+
+return {
+  orderId,
+  submittedAt: new Date().toISOString(),
         storeInfo: {
           storeName: form.storeName.value.trim(),
           storeNameEn: form.storeNameEn.value.trim(),
@@ -1196,7 +1211,12 @@
           throw new Error(result.error || '送出失敗');
         }
 
-        showStatus('ok', '表單已成功送出，資料已提交。若有需要 LOGO，請記得再傳送到官方 LINE。');
+        showStatus(
+  'ok',
+  `表單已成功送出 ✔️
+訂單編號：${payload.orderId}
+請將 LOGO 傳送至 LINE 並備註此訂單編號。`
+);
         form.reset();
       } catch(err){
         console.error(err);
