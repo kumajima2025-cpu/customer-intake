@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>線上定型化契約客製化需求表</title>
+  <title>客製化系統需求表</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap');
 
@@ -199,20 +199,9 @@
       gap:10px;
     }
 
-    .priceCard{
-      padding:14px;
-    }
-
-    .priceTitle{
-      font-weight:800;
-      margin-bottom:4px;
-    }
-
-    .priceAmount{
-      color:var(--accent);
-      font-size:18px;
-      font-weight:800;
-    }
+    .priceCard{ padding:14px; }
+    .priceTitle{ font-weight:800; margin-bottom:4px; }
+    .priceAmount{ color:var(--accent); font-size:18px; font-weight:800; }
 
     .totalCard{
       margin-top:14px;
@@ -221,24 +210,9 @@
       border-color:var(--accent-2);
     }
 
-    .totalLabel{
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-
-    .totalValue{
-      font-size:32px;
-      line-height:1.1;
-      font-weight:800;
-      color:var(--accent);
-    }
-
-    .totalDesc{
-      margin-top:8px;
-      color:var(--muted);
-      font-size:13px;
-    }
+    .totalLabel{ font-size:14px; color:var(--muted); margin-bottom:6px; }
+    .totalValue{ font-size:32px; line-height:1.1; font-weight:800; color:var(--accent); }
+    .totalDesc{ margin-top:8px; color:var(--muted); font-size:13px; }
 
     .lineLink{
       display:inline-flex;
@@ -268,11 +242,7 @@
       transition:.18s ease;
     }
 
-    .btnGhost{
-      background:#EFE6DA;
-      color:var(--text);
-    }
-
+    .btnGhost{ background:#EFE6DA; color:var(--text); }
     .btnPrimary{
       background:linear-gradient(135deg,var(--accent),var(--accent-2));
       color:#fff;
@@ -288,7 +258,6 @@
       font-size:14px;
       display:none;
     }
-
     .status.show{ display:block; }
     .status.ok{ background:#EEF8F1; color:var(--ok); border:1px solid #CFE8D7; }
     .status.err{ background:#FFF1F0; color:var(--danger); border:1px solid #F0C7C4; }
@@ -315,9 +284,7 @@
     <div class="hero">
       <div class="brand">客製化系統需求表</div>
       <h1>店家需求填寫表單</h1>
-      <div class="sub">
-        店家填完後，你就能快速整理需求、核對價格，並依照勾選內容客製化生成對應程式碼。
-      </div>
+      <div class="sub">店家填完後，你就能快速整理需求、核對價格，並依照勾選內容客製化生成對應程式碼。</div>
     </div>
 
     <form id="intakeForm">
@@ -327,15 +294,15 @@
           <div class="grid">
             <div class="field">
               <label for="storeName">店家名稱<span class="req">*</span></label>
-              <input id="storeName" name="storeName" type="text" required placeholder="例如：ＯＯ寵物有限公司" />
+              <input id="storeName" name="storeName" type="text" required placeholder="例如：熊嶼寵物有限公司" />
             </div>
             <div class="field">
               <label for="storeNameEn">英文店名</label>
-              <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：ABC Pet Salon" />
+              <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：Kumajima Pet Salon" />
             </div>
             <div class="field">
               <label for="storeLine">店家 LINE<span class="req">*</span></label>
-              <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@abc123456" />
+              <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@kumajima" />
             </div>
             <div class="field">
               <label for="storeAddress">店家地址<span class="req">*</span></label>
@@ -358,12 +325,12 @@
         <div class="cardBody">
           <div class="hint">可複選。下方會自動計算目前預估價格。</div>
           <div class="optionGrid">
-            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁包含顧客資料卡）</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="contract_with_card">定型化契約（同個網頁含顧客資料卡）</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="contract_only">定型化契約</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="hotel_profile">住宿基本資料卡</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="hotel_checkout">住宿明細確認單</label></div>
             <div class="chip"><label><input type="checkbox" name="modules" value="physical_card">實體顧客資料卡</label></div>
-            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報設計(含印刷費用$383元)</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="poster">半開契約海報</label></div>
           </div>
         </div>
       </section>
@@ -380,7 +347,7 @@
           </div>
           <div class="field full hide" id="contractCustomWrap" style="margin-top:12px;">
             <label for="contractCustomText">契約內容補充</label>
-            <textarea id="contractCustomText" name="contractCustomText" placeholder="請填寫契約內容需求，或貼上要修改的內容"></textarea>
+            <textarea id="contractCustomText" name="contractCustomText" placeholder="請完整貼上契約內容"></textarea>
           </div>
 
           <div id="basicCardSection" class="hide" style="margin-top:16px;">
@@ -394,6 +361,34 @@
             <div class="field full hide" id="basicCardCustomWrap" style="margin-top:12px;">
               <label for="basicCardCustomText">基本資料卡內容補充</label>
               <textarea id="basicCardCustomText" name="basicCardCustomText" placeholder="請填寫顧客資料卡內容需求"></textarea>
+            </div>
+          </div>
+
+          <div id="hotelProfileSection" class="hide" style="margin-top:16px;">
+            <div class="field">
+              <label>住宿基本資料卡<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="hotelProfileMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="hotelProfileMode" value="custom">自行提供內容</label></div>
+              </div>
+            </div>
+            <div class="field full hide" id="hotelProfileCustomWrap" style="margin-top:12px;">
+              <label for="hotelProfileCustomText">住宿基本資料卡內容補充</label>
+              <textarea id="hotelProfileCustomText" name="hotelProfileCustomText" placeholder="請填寫住宿基本資料卡內容需求"></textarea>
+            </div>
+          </div>
+
+          <div id="hotelCheckoutSection" class="hide" style="margin-top:16px;">
+            <div class="field">
+              <label>住宿明細確認單<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="hotelCheckoutMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="hotelCheckoutMode" value="custom">自行提供內容</label></div>
+              </div>
+            </div>
+            <div class="field full hide" id="hotelCheckoutCustomWrap" style="margin-top:12px;">
+              <label for="hotelCheckoutCustomText">住宿明細確認單內容補充</label>
+              <textarea id="hotelCheckoutCustomText" name="hotelCheckoutCustomText" placeholder="請填寫住宿明細確認單內容需求"></textarea>
             </div>
           </div>
 
@@ -473,6 +468,7 @@
               <div class="radioCard"><label><input type="radio" name="operationMode" value="self" required>全程自行操作</label></div>
               <div class="radioCard"><label><input type="radio" name="operationMode" value="assist" required>需要協助操作</label></div>
             </div>
+            <div class="hint" id="operationHint" style="margin:10px 0 0;">選擇後會顯示對應說明。</div>
           </div>
         </div>
       </section>
@@ -498,11 +494,32 @@
               <div class="priceTitle">住宿明細確認單</div>
               <div class="priceAmount">$3000</div>
             </div>
+            <div class="priceCard">
+              <div class="priceTitle">實體顧客資料卡設計（照公版範本）</div>
+              <div class="priceAmount">$1500</div>
+              <div class="hint" style="margin:6px 0 0;">含印刷費用 $1097，1本50張，共20本</div>
+            </div>
+            <div class="priceCard">
+              <div class="priceTitle">實體顧客資料卡設計（自行提供內容）</div>
+              <div class="priceAmount">$2000</div>
+              <div class="hint" style="margin:6px 0 0;">含印刷費用 $1097，1本50張，共20本</div>
+            </div>
+            <div class="priceCard">
+              <div class="priceTitle">半開海報契約設計（照公版範本）</div>
+              <div class="priceAmount">$1000</div>
+              <div class="hint">含印刷費用 $383</div>
+</div>
+<div class="priceCard">
+  <div class="priceTitle">半開海報契約設計（自行提供內容）</div>
+  <div class="priceAmount">$1500</div>
+  <div class="hint">含印刷費用 $383</div>
+            </div>
           </div>
           <div class="totalCard">
             <div class="totalLabel">預估總價</div>
             <div class="totalValue" id="totalPrice">$0</div>
             <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
+            <div class="hint" style="margin:12px 0 0;">匯款資訊建議不要直接放在這裡，改成送出表單後再提供，或由你確認需求後再通知付款，會比較安全也比較好控管。</div>
           </div>
         </div>
       </section>
@@ -519,15 +536,17 @@
   </div>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyhG5VGHcsllaIxm6_SkRhlOvn228xw1tVZhiagJ227mQR85ZqCIpRtVhaGxI2gvEQ/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
     const PRICE_MAP = {
-      contract_with_card: 5000,
-      contract_only: 3000,
-      hotel_profile: 3000,
-      hotel_checkout: 3000,
-      physical_card: 0,
-      poster: 0
-    };
+  contract_with_card: 5000,
+  contract_only: 3000,
+  hotel_profile: 3000,
+  hotel_checkout: 3000,
+  physical_card_template: 1500,
+  physical_card_custom: 2000,
+  poster_template: 1000,
+  poster_custom: 1500
+};
 
     const form = document.getElementById('intakeForm');
     const statusBox = document.getElementById('status');
@@ -539,12 +558,17 @@
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
     const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
+    const hotelProfileSection = document.getElementById('hotelProfileSection');
+    const hotelProfileCustomWrap = document.getElementById('hotelProfileCustomWrap');
+    const hotelCheckoutSection = document.getElementById('hotelCheckoutSection');
+    const hotelCheckoutCustomWrap = document.getElementById('hotelCheckoutCustomWrap');
     const physicalCardSection = document.getElementById('physicalCardSection');
     const physicalCardCustomWrap = document.getElementById('physicalCardCustomWrap');
     const posterSection = document.getElementById('posterSection');
     const posterCustomWrap = document.getElementById('posterCustomWrap');
     const totalPrice = document.getElementById('totalPrice');
     const totalDesc = document.getElementById('totalDesc');
+    const operationHint = document.getElementById('operationHint');
 
     function showStatus(type, message){
       statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
@@ -592,6 +616,34 @@
       basicCardCustomWrap.classList.toggle('hide', getRadioValue('basicCardMode') !== 'custom');
     }
 
+    function toggleHotelProfileSection(){
+      const show = getModules().includes('hotel_profile');
+      hotelProfileSection.classList.toggle('hide', !show);
+      if(!show){
+        document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => el.checked = false);
+        document.getElementById('hotelProfileCustomText').value = '';
+        hotelProfileCustomWrap.classList.add('hide');
+      }
+    }
+
+    function toggleHotelProfileCustom(){
+      hotelProfileCustomWrap.classList.toggle('hide', getRadioValue('hotelProfileMode') !== 'custom');
+    }
+
+    function toggleHotelCheckoutSection(){
+      const show = getModules().includes('hotel_checkout');
+      hotelCheckoutSection.classList.toggle('hide', !show);
+      if(!show){
+        document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => el.checked = false);
+        document.getElementById('hotelCheckoutCustomText').value = '';
+        hotelCheckoutCustomWrap.classList.add('hide');
+      }
+    }
+
+    function toggleHotelCheckoutCustom(){
+      hotelCheckoutCustomWrap.classList.toggle('hide', getRadioValue('hotelCheckoutMode') !== 'custom');
+    }
+
     function togglePhysicalCardSection(){
       const show = getModules().includes('physical_card');
       physicalCardSection.classList.toggle('hide', !show);
@@ -620,15 +672,15 @@
       posterCustomWrap.classList.toggle('hide', getRadioValue('posterMode') !== 'custom');
     }
 
-    function syncContentSections(){
-      toggleContractCustom();
-      toggleBasicCardSection();
-      toggleBasicCardCustom();
-      togglePhysicalCardSection();
-      togglePhysicalCardCustom();
-      togglePosterSection();
-      togglePosterCustom();
-      updatePrice();
+    function updateOperationHint(){
+      const mode = getRadioValue('operationMode');
+      if(mode === 'self'){
+        operationHint.textContent = '全程自行操作：送件後會提供完整操作步驟，店家可依照教學自行完成設定。';
+      }else if(mode === 'assist'){
+        operationHint.textContent = '需要協助操作：建議安排 LINE 文字教學＋螢幕分享或通話協助，帶對方一步一步完成 GitHub、Apps Script 與部署設定。';
+      }else{
+        operationHint.textContent = '選擇後會顯示對應說明。';
+      }
     }
 
     function formatMoney(num){
@@ -637,29 +689,63 @@
 
     function updatePrice(){
       const modules = getModules();
-      const total = modules.reduce((sum, key) => sum + (PRICE_MAP[key] || 0), 0);
-      totalPrice.textContent = formatMoney(total);
+      let total = 0;
+      const selectedText = [];
 
-      const selectedText = modules.map(key => {
-        const map = {
-          contract_with_card: '定型化契約＋顧客資料卡',
-          contract_only: '定型化契約',
-          hotel_profile: '住宿基本資料卡',
-          hotel_checkout: '住宿明細確認單',
-          physical_card: '實體顧客資料卡',
-          poster: '半開契約海報'
-        };
-        return map[key] || key;
+      modules.forEach(key => {
+        if(key === 'physical_card'){
+          const mode = getRadioValue('physicalCardMode');
+          const amount = PRICE_MAP[mode === 'custom' ? 'physical_card_custom' : 'physical_card_template'] || 0;
+          total += amount;
+          selectedText.push(mode === 'custom' ? '實體顧客資料卡（自行提供內容）' : '實體顧客資料卡（照公版範本）');
+        else if(key === 'poster'){
+  const mode = getRadioValue('posterMode');
+  total += PRICE_MAP[mode === 'custom' ? 'poster_custom' : 'poster_template'] || 0;
+}
+else{
+  total += PRICE_MAP[key] || 0;
+}
+          const map = {
+            contract_with_card: '定型化契約＋顧客資料卡',
+            contract_only: '定型化契約',
+            hotel_profile: '住宿基本資料卡',
+            hotel_checkout: '住宿明細確認單',
+            poster: '半開契約海報'
+          };
+          selectedText.push(map[key] || key);
+        }
       });
 
-      totalDesc.textContent = selectedText.length
-        ? '目前勾選：' + selectedText.join('、')
-        : '請勾選上方製作項目後自動計算。';
+      totalPrice.textContent = formatMoney(total);
+      totalDesc.textContent = selectedText.length ? '目前勾選：' + selectedText.join('、') : '請勾選上方製作項目後自動計算。';
+    }
+
+    function syncContentSections(){
+      toggleContractCustom();
+      toggleBasicCardSection();
+      toggleBasicCardCustom();
+      toggleHotelProfileSection();
+      toggleHotelProfileCustom();
+      toggleHotelCheckoutSection();
+      toggleHotelCheckoutCustom();
+      togglePhysicalCardSection();
+      togglePhysicalCardCustom();
+      togglePosterSection();
+      togglePosterCustom();
+      updateOperationHint();
+      updatePrice();
     }
 
     function collectData(){
       const modules = getModules();
-      const total = modules.reduce((sum, key) => sum + (PRICE_MAP[key] || 0), 0);
+      let total = 0;
+      modules.forEach(key => {
+        if(key === 'physical_card'){
+          total += PRICE_MAP[getRadioValue('physicalCardMode') === 'custom' ? 'physical_card_custom' : 'physical_card_template'] || 0;
+        }else{
+          total += PRICE_MAP[key] || 0;
+        }
+      });
 
       return {
         submittedAt: new Date().toISOString(),
@@ -677,6 +763,10 @@
           contractCustomText: form.contractCustomText.value.trim(),
           basicCardMode: getRadioValue('basicCardMode'),
           basicCardCustomText: form.basicCardCustomText.value.trim(),
+          hotelProfileMode: getRadioValue('hotelProfileMode'),
+          hotelProfileCustomText: form.hotelProfileCustomText.value.trim(),
+          hotelCheckoutMode: getRadioValue('hotelCheckoutMode'),
+          hotelCheckoutCustomText: form.hotelCheckoutCustomText.value.trim(),
           physicalCardMode: getRadioValue('physicalCardMode'),
           physicalCardCustomText: form.physicalCardCustomText.value.trim(),
           posterMode: getRadioValue('posterMode'),
@@ -696,28 +786,22 @@
           contract_only: 3000,
           hotel_profile: 3000,
           hotel_checkout: 3000,
-          physical_card: 0,
-          poster: 0,
+          physical_card_template: 1500,
+          physical_card_custom: 2000,
+          poster: 1000,
           total: total
         }
       };
     }
 
-    document.querySelectorAll('input[name="modules"]').forEach(el => {
-      el.addEventListener('change', syncContentSections);
-    });
-    document.querySelectorAll('input[name="contractMode"]').forEach(el => {
-      el.addEventListener('change', toggleContractCustom);
-    });
-    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => {
-      el.addEventListener('change', toggleBasicCardCustom);
-    });
-    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => {
-      el.addEventListener('change', togglePhysicalCardCustom);
-    });
-    document.querySelectorAll('input[name="posterMode"]').forEach(el => {
-      el.addEventListener('change', togglePosterCustom);
-    });
+    document.querySelectorAll('input[name="modules"]').forEach(el => el.addEventListener('change', syncContentSections));
+    document.querySelectorAll('input[name="contractMode"]').forEach(el => el.addEventListener('change', () => { toggleContractCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => el.addEventListener('change', () => { toggleBasicCardCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => el.addEventListener('change', () => { toggleHotelProfileCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => el.addEventListener('change', () => { toggleHotelCheckoutCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => el.addEventListener('change', () => { togglePhysicalCardCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="posterMode"]').forEach(el => el.addEventListener('change', () => { togglePosterCustom(); updatePrice(); }));
+    document.querySelectorAll('input[name="operationMode"]').forEach(el => el.addEventListener('change', updateOperationHint));
     logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoHelp));
     theme.addEventListener('change', toggleCustomTheme);
 
@@ -741,11 +825,9 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideStatus();
-
       if(!form.reportValidity()) return;
 
       const payload = collectData();
-
       if(!GAS_URL || GAS_URL.includes('請換成你的WebApp網址')){
         showStatus('err', '你還沒設定 Apps Script Web App 網址，請先把 GAS_URL 換成你的網址。');
         console.log('目前準備送出的 payload：', payload);
@@ -758,14 +840,10 @@
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
-
         const text = await res.text();
         let result = {};
         try{ result = JSON.parse(text); }catch(_){ result = { raw:text }; }
-
-        if(!res.ok || result.ok === false){
-          throw new Error(result.error || '送出失敗');
-        }
+        if(!res.ok || result.ok === false) throw new Error(result.error || '送出失敗');
 
         showStatus('ok', '表單已成功送出，資料已提交。若有需要 LOGO，請記得再傳送到官方 LINE。');
         form.reset();
