@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>客製化系統需求表</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap');
+
+    :root{
+      --bg:#F6F1E9;
+      --card:#FFFFFF;
+      --line:#E4D9CA;
+      --text:#2F2A24;
+      --muted:#7D746A;
+      --title:#EDE4D6;
+      --accent:#8B6B4E;
+      --accent-2:#B8926A;
+      --danger:#B94A48;
+      --ok:#3E7B5D;
+      --shadow:0 16px 40px rgba(73,53,34,.08);
+      --radius:24px;
+      --radius-sm:16px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; }
+    body{
+      background:linear-gradient(180deg,#F8F4EE 0%, #F3EDE4 100%);
+      color:var(--text);
+      font-family:"Noto Sans TC",sans-serif;
+      line-height:1.6;
+    }
+
+    .wrap{
+      width:min(100%, 920px);
+      margin:0 auto;
+      padding:28px 18px 64px;
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:inline-block;
+      padding:8px 16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.7);
+      color:var(--accent);
+      font-weight:700;
+      letter-spacing:.08em;
+      margin-bottom:12px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(28px,4vw,40px);
+      line-height:1.2;
+      letter-spacing:.02em;
+    }
+
+    .sub{
+      max-width:760px;
+      margin:12px auto 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    form{
+      display:grid;
+      gap:18px;
+      margin-top:22px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .cardHead{
+      background:var(--title);
+      padding:16px 20px;
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+
+    .cardBody{
+      padding:20px;
+    }
+
+    .hint{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:-4px;
+      margin-bottom:14px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .full{ grid-column:1 / -1; }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    label{
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .req{ color:var(--danger); margin-left:4px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    textarea,
+    select{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:14px;
+      padding:13px 14px;
+      font:inherit;
+      outline:none;
+      transition:.18s ease;
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    input:focus, textarea:focus, select:focus{
+      border-color:var(--accent-2);
+      box-shadow:0 0 0 4px rgba(184,146,106,.12);
+    }
+
+    .optionGrid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .chip,
+    .radioCard{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      transition:.18s ease;
+    }
+
+    .chip label,
+    .radioCard label{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:14px 14px;
+      cursor:pointer;
+      font-weight:600;
+      height:100%;
+    }
+
+    .radioRow{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .chip input,
+    .radioCard input{
+      margin-top:3px;
+      transform:scale(1.05);
+      accent-color:var(--accent);
+    }
+
+    .chip:has(input:checked),
+    .radioCard:has(input:checked){
+      border-color:var(--accent-2);
+      box-shadow:0 0 0 4px rgba(184,146,106,.10);
+      background:#FFFCF7;
+    }
+
+    .mini{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:500;
+      margin-top:3px;
+      line-height:1.5;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      margin-top:4px;
+    }
+
+    button{
+      border:0;
+      border-radius:999px;
+      padding:14px 22px;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btnGhost{
+      background:#EFE6DA;
+      color:var(--text);
+    }
+
+    .btnPrimary{
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#fff;
+      box-shadow:0 12px 24px rgba(139,107,78,.22);
+    }
+
+    button:hover{ transform:translateY(-1px); }
+
+    .status{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      font-size:14px;
+      display:none;
+    }
+
+    .status.show{ display:block; }
+    .status.ok{ background:#EEF8F1; color:var(--ok); border:1px solid #CFE8D7; }
+    .status.err{ background:#FFF1F0; color:var(--danger); border:1px solid #F0C7C4; }
+
+    .footerNote{
+      margin-top:16px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .hide{ display:none !important; }
+
+    @media (max-width: 760px){
+      .grid, .grid3, .optionGrid, .radioRow{ grid-template-columns:1fr; }
+      .cardBody{ padding:16px; }
+      .wrap{ padding:20px 14px 54px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand">客製化系統需求表</div>
+      <h1>店家需求填寫表單</h1>
+      <div class="sub">
+        請店家填寫品牌資料、想要的功能項目、內容需求與視覺風格。送出後，你就可以依照表單資料快速客製化生成對應程式碼。
+      </div>
+    </div>
+
+    <form id="intakeForm">
+      <section class="card">
+        <div class="cardHead">A. 店家基本資料</div>
+        <div class="cardBody">
+          <div class="grid">
+            <div class="field">
+              <label for="storeName">店家名稱<span class="req">*</span></label>
+              <input id="storeName" name="storeName" type="text" required placeholder="例如：熊嶼寵物有限公司" />
+            </div>
+            <div class="field">
+              <label for="storeNameEn">英文店名</label>
+              <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：Kumajima Pet Salon" />
+            </div>
+            <div class="field">
+              <label for="contactName">聯絡人姓名<span class="req">*</span></label>
+              <input id="contactName" name="contactName" type="text" required placeholder="請填寫聯絡窗口" />
+            </div>
+            <div class="field">
+              <label for="email">聯絡 Email<span class="req">*</span></label>
+              <input id="email" name="email" type="email" required placeholder="example@gmail.com" />
+            </div>
+            <div class="field">
+              <label for="lineId">LINE / 官方 LINE</label>
+              <input id="lineId" name="lineId" type="text" placeholder="例如：@kumajima" />
+            </div>
+            <div class="field">
+              <label for="phone">聯絡電話</label>
+              <input id="phone" name="phone" type="tel" placeholder="例如：0912-345-678" />
+            </div>
+            <div class="field full">
+              <label for="address">店家地址</label>
+              <input id="address" name="address" type="text" placeholder="請填寫完整地址" />
+            </div>
+            <div class="field">
+              <label for="githubAccount">GitHub 帳號</label>
+              <input id="githubAccount" name="githubAccount" type="text" placeholder="例如：kumajima2025" />
+            </div>
+            <div class="field">
+              <label for="backupEmail">備用收件信箱</label>
+              <input id="backupEmail" name="backupEmail" type="email" placeholder="例如：backup@gmail.com" />
+            </div>
+            <div class="field full">
+              <label for="brandIntro">品牌簡介 / 品牌感覺補充</label>
+              <textarea id="brandIntro" name="brandIntro" placeholder="例如：想要高級、溫柔、奶油色系，服務以中小型犬為主"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">B. 想要製作的項目</div>
+        <div class="cardBody">
+          <div class="hint">可複選，你之後可以直接依照這些勾選項目決定要生成哪些模組。</div>
+          <div class="optionGrid">
+            <div class="chip"><label><input type="checkbox" name="modules" value="customerCard">顧客資料卡</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="contract">美容定型化契約</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="hotelProfile">住宿基本資料表</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="hotelCheckout">住宿明細確認頁</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="signature">線上簽名功能</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="pdf">PDF 下載 / 產生</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="emailSend">Email 自動寄送</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="backupCopy">備份信箱副本</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="sheetSave">Google Sheets 紀錄</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="githubPages">GitHub Pages 部署版</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="mobileUI">手機版優化</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="logo">LOGO 置入</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="footerInfo">自訂頁尾資訊</label></div>
+            <div class="chip"><label><input type="checkbox" name="modules" value="customTerms">自訂同意條款</label></div>
+          </div>
+          <div class="field" style="margin-top:14px;">
+            <label for="otherModule">其他需求</label>
+            <textarea id="otherModule" name="otherModule" placeholder="例如：想加預約成功頁、讀取舊資料、扭蛋活動頁等"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">C. 顧客資料卡 / 契約內容需求</div>
+        <div class="cardBody">
+          <div class="grid">
+            <div class="field">
+              <label>顧客資料卡內容方式<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="template" required>照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="template-edit">公版小修改</label></div>
+                <div class="radioCard"><label><input type="radio" name="customerCardMode" value="custom">自行提供內容</label></div>
+              </div>
+            </div>
+            <div class="field">
+              <label>契約內容方式<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="contractMode" value="template" required>照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="contractMode" value="template-edit">公版小修改</label></div>
+                <div class="radioCard"><label><input type="radio" name="contractMode" value="custom">自行提供內容</label></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="contentExtra" class="grid hide" style="margin-top:14px;">
+            <div class="field full">
+              <label for="editNotes">需要修改哪幾段 / 想新增什麼內容</label>
+              <textarea id="editNotes" name="editNotes" placeholder="例如：想加入遲到、晚接回、跳蚤壁蝨、攻擊行為、緊急送醫授權等條款"></textarea>
+            </div>
+            <div class="field">
+              <label for="hasOwnFile">是否已有自己的內容檔案</label>
+              <select id="hasOwnFile" name="hasOwnFile">
+                <option value="">請選擇</option>
+                <option value="no">沒有</option>
+                <option value="yes-word">有，Word</option>
+                <option value="yes-pdf">有，PDF</option>
+                <option value="yes-image">有，圖片</option>
+                <option value="yes-other">有，其他格式</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fileLink">內容檔案連結</label>
+              <input id="fileLink" name="fileLink" type="url" placeholder="可貼 Google Drive / 雲端連結" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">D. 視覺風格 / 色系</div>
+        <div class="cardBody">
+          <div class="grid">
+            <div class="field">
+              <label for="theme">想要的色系<span class="req">*</span></label>
+              <select id="theme" name="theme" required>
+                <option value="">請選擇色系</option>
+                <option value="cream">奶油暖白</option>
+                <option value="earth">大地卡其</option>
+                <option value="moca">莫蘭迪灰棕</option>
+                <option value="peach">粉橘溫柔</option>
+                <option value="mono">黑白極簡</option>
+                <option value="custom">其他自訂</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tone">品牌感覺<span class="req">*</span></label>
+              <select id="tone" name="tone" required>
+                <option value="">請選擇品牌風格</option>
+                <option value="soft">溫柔療癒</option>
+                <option value="premium">高級精品</option>
+                <option value="cute">可愛親和</option>
+                <option value="clean">專業簡約</option>
+                <option value="japan">日系自然</option>
+              </select>
+            </div>
+            <div class="field full hide" id="customThemeWrap">
+              <label for="customTheme">自訂色系說明</label>
+              <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕、深灰米白" />
+            </div>
+            <div class="field full">
+              <label for="refLink">參考網站 / 參考圖片連結</label>
+              <input id="refLink" name="refLink" type="url" placeholder="可貼 IG、官網、Pinterest、雲端圖片連結" />
+            </div>
+            <div class="field">
+              <label for="hasLogo">是否提供 LOGO</label>
+              <select id="hasLogo" name="hasLogo">
+                <option value="">請選擇</option>
+                <option value="yes">有</option>
+                <option value="no">沒有</option>
+              </select>
+            </div>
+            <div class="field hide" id="logoLinkWrap">
+              <label for="logoLink">LOGO 連結</label>
+              <input id="logoLink" name="logoLink" type="url" placeholder="請貼 LOGO 雲端連結" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">E. 技術設定</div>
+        <div class="cardBody">
+          <div class="grid3">
+            <div class="field">
+              <label for="hasGithub">是否已有 GitHub 帳號</label>
+              <select id="hasGithub" name="hasGithub">
+                <option value="">請選擇</option>
+                <option value="yes">有</option>
+                <option value="no">沒有</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="needRepoHelp">是否需要協助建立 Repo</label>
+              <select id="needRepoHelp" name="needRepoHelp">
+                <option value="">請選擇</option>
+                <option value="yes">需要</option>
+                <option value="no">不需要</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="hasGoogle">是否已有 Google 帳號可使用 Apps Script</label>
+              <select id="hasGoogle" name="hasGoogle">
+                <option value="">請選擇</option>
+                <option value="yes">有</option>
+                <option value="no">沒有</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="needEmailFeature">是否需要 Gmail 自動寄送</label>
+              <select id="needEmailFeature" name="needEmailFeature">
+                <option value="">請選擇</option>
+                <option value="yes">需要</option>
+                <option value="no">不需要</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="needSheet">是否需要存進 Google Sheets</label>
+              <select id="needSheet" name="needSheet">
+                <option value="">請選擇</option>
+                <option value="yes">需要</option>
+                <option value="no">不需要</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="needDeploy">是否需要協助部署</label>
+              <select id="needDeploy" name="needDeploy">
+                <option value="">請選擇</option>
+                <option value="yes">需要</option>
+                <option value="no">不需要</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">F. 備註 / 交件需求</div>
+        <div class="cardBody">
+          <div class="grid">
+            <div class="field">
+              <label for="priority">希望完成順序 / 急件程度</label>
+              <select id="priority" name="priority">
+                <option value="">請選擇</option>
+                <option value="normal">一般排單</option>
+                <option value="soon">希望盡快</option>
+                <option value="urgent">急件</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">預算區間</label>
+              <input id="budget" name="budget" type="text" placeholder="例如：3000-8000" />
+            </div>
+            <div class="field full">
+              <label for="notes">其他特殊需求</label>
+              <textarea id="notes" name="notes" placeholder="請填寫任何想補充的內容"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="btnGhost" id="previewBtn">預覽送出資料</button>
+        <button type="reset" class="btnGhost">清空重填</button>
+        <button type="submit" class="btnPrimary">送出需求表</button>
+      </div>
+
+      <div id="status" class="status"></div>
+      <div class="footerNote">此頁可直接放上 GitHub Pages。把下方 JavaScript 的 GAS_URL 改成你的 Apps Script Web App 網址即可開始收單。</div>
+    </form>
+  </div>
+
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/請換成你的WebApp網址/exec";
+
+    const form = document.getElementById('intakeForm');
+    const statusBox = document.getElementById('status');
+    const previewBtn = document.getElementById('previewBtn');
+    const theme = document.getElementById('theme');
+    const customThemeWrap = document.getElementById('customThemeWrap');
+    const hasLogo = document.getElementById('hasLogo');
+    const logoLinkWrap = document.getElementById('logoLinkWrap');
+    const customerCardModes = document.querySelectorAll('input[name="customerCardMode"]');
+    const contractModes = document.querySelectorAll('input[name="contractMode"]');
+    const contentExtra = document.getElementById('contentExtra');
+
+    function showStatus(type, message){
+      statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
+      statusBox.textContent = message;
+    }
+
+    function hideStatus(){
+      statusBox.className = 'status';
+      statusBox.textContent = '';
+    }
+
+    function getRadioValue(name){
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : '';
+    }
+
+    function collectData(){
+      const fd = new FormData(form);
+      const modules = fd.getAll('modules');
+
+      return {
+        submittedAt: new Date().toISOString(),
+        storeInfo: {
+          storeName: fd.get('storeName') || '',
+          storeNameEn: fd.get('storeNameEn') || '',
+          contactName: fd.get('contactName') || '',
+          email: fd.get('email') || '',
+          lineId: fd.get('lineId') || '',
+          phone: fd.get('phone') || '',
+          address: fd.get('address') || '',
+          githubAccount: fd.get('githubAccount') || '',
+          backupEmail: fd.get('backupEmail') || '',
+          brandIntro: fd.get('brandIntro') || ''
+        },
+        modules,
+        moduleFlags: {
+          customerCard: modules.includes('customerCard'),
+          contract: modules.includes('contract'),
+          hotelProfile: modules.includes('hotelProfile'),
+          hotelCheckout: modules.includes('hotelCheckout'),
+          signature: modules.includes('signature'),
+          pdf: modules.includes('pdf'),
+          emailSend: modules.includes('emailSend'),
+          backupCopy: modules.includes('backupCopy'),
+          sheetSave: modules.includes('sheetSave'),
+          githubPages: modules.includes('githubPages'),
+          mobileUI: modules.includes('mobileUI'),
+          logo: modules.includes('logo'),
+          footerInfo: modules.includes('footerInfo'),
+          customTerms: modules.includes('customTerms')
+        },
+        otherModule: fd.get('otherModule') || '',
+        contentMode: {
+          customerCardMode: getRadioValue('customerCardMode'),
+          contractMode: getRadioValue('contractMode'),
+          editNotes: fd.get('editNotes') || '',
+          hasOwnFile: fd.get('hasOwnFile') || '',
+          fileLink: fd.get('fileLink') || ''
+        },
+        design: {
+          theme: fd.get('theme') || '',
+          tone: fd.get('tone') || '',
+          customTheme: fd.get('customTheme') || '',
+          refLink: fd.get('refLink') || '',
+          hasLogo: fd.get('hasLogo') || '',
+          logoLink: fd.get('logoLink') || ''
+        },
+        tech: {
+          hasGithub: fd.get('hasGithub') || '',
+          needRepoHelp: fd.get('needRepoHelp') || '',
+          hasGoogle: fd.get('hasGoogle') || '',
+          needEmailFeature: fd.get('needEmailFeature') || '',
+          needSheet: fd.get('needSheet') || '',
+          needDeploy: fd.get('needDeploy') || ''
+        },
+        delivery: {
+          priority: fd.get('priority') || '',
+          budget: fd.get('budget') || '',
+          notes: fd.get('notes') || ''
+        }
+      };
+    }
+
+    function toggleCustomTheme(){
+      customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
+    }
+
+    function toggleLogoLink(){
+      logoLinkWrap.classList.toggle('hide', hasLogo.value !== 'yes');
+    }
+
+    function toggleContentExtra(){
+      const needExtra = ['template-edit','custom'].includes(getRadioValue('customerCardMode'))
+        || ['template-edit','custom'].includes(getRadioValue('contractMode'));
+      contentExtra.classList.toggle('hide', !needExtra);
+    }
+
+    theme.addEventListener('change', toggleCustomTheme);
+    hasLogo.addEventListener('change', toggleLogoLink);
+    customerCardModes.forEach(el => el.addEventListener('change', toggleContentExtra));
+    contractModes.forEach(el => el.addEventListener('change', toggleContentExtra));
+
+    previewBtn.addEventListener('click', () => {
+      hideStatus();
+      if(!form.reportValidity()) return;
+      const data = collectData();
+      console.log('表單資料預覽：', data);
+      showStatus('ok', '已將資料預覽輸出到瀏覽器 console。你可以按 F12 查看 JSON 結構。');
+    });
+
+    form.addEventListener('reset', () => {
+      setTimeout(() => {
+        hideStatus();
+        toggleCustomTheme();
+        toggleLogoLink();
+        toggleContentExtra();
+      }, 0);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideStatus();
+
+      if(!form.reportValidity()) return;
+
+      const payload = collectData();
+
+      if(!GAS_URL || GAS_URL.includes('請換成你的WebApp網址')){
+        showStatus('err', '你還沒設定 Apps Script Web App 網址，請先把 GAS_URL 換成你的網址。');
+        console.log('目前準備送出的 payload：', payload);
+        return;
+      }
+
+      try {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();
+        let result = {};
+        try{ result = JSON.parse(text); }catch(_){ result = { raw:text }; }
+
+        if(!res.ok || result.ok === false){
+          throw new Error(result.error || '送出失敗');
+        }
+
+        showStatus('ok', '表單已成功送出，資料已提交。');
+        form.reset();
+      } catch(err){
+        console.error(err);
+        showStatus('err', '送出失敗，請稍後再試，或檢查 Apps Script 權限與網址是否正確。');
+      }
+    });
+
+    toggleCustomTheme();
+    toggleLogoLink();
+    toggleContentExtra();
+  </script>
+</body>
+</html>
