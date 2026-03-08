@@ -781,7 +781,6 @@
     const theme = document.getElementById('theme');
     const customThemeWrap = document.getElementById('customThemeWrap');
     const logoNeedEls = document.querySelectorAll('input[name="logoNeed"]');
-    const logoHelpWrap = document.getElementById('logoHelpWrap');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
     const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
@@ -825,9 +824,6 @@
       customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
     }
 
-    function toggleLogoHelp(){
-      logoHelpWrap.classList.toggle('hide', getRadioValue('logoNeed') !== 'yes');
-    }
 
     function toggleContractCustom(){
       contractCustomWrap.classList.toggle('hide', getRadioValue('contractMode') !== 'custom');
@@ -1122,7 +1118,6 @@ return {
       el.addEventListener('change', updateOperationHint);
     });
 
-    logoNeedEls.forEach(el => el.addEventListener('change', toggleLogoHelp));
     theme.addEventListener('change', toggleCustomTheme);
 
     document.querySelectorAll('.previewBtn').forEach(btn => {
