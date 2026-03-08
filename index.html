@@ -729,6 +729,7 @@
         <button type="button" class="btnGhost" id="previewBtn">預覽送出資料</button>
         <button type="reset" class="btnGhost">清空重填</button>
         <button type="submit" class="btnPrimary">送出需求表</button>
+        <div id="status" class="status"></div>
       </div>
 
      <div class="footerNote" style="margin-top:10px;line-height:1.6;">
@@ -1156,7 +1157,6 @@ return {
       setTimeout(() => {
         hideStatus();
         toggleCustomTheme();
-        toggleLogoHelp();
         syncContentSections();
       }, 0);
     });
@@ -1227,7 +1227,6 @@ https://line.me/ti/p/k8vS9REcTl`
     });
 
     toggleCustomTheme();
-    toggleLogoHelp();
     syncContentSections();
   </script>
 </body>
