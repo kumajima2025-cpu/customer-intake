@@ -657,10 +657,6 @@
               <input id="customTheme" name="customTheme" type="text" placeholder="例如：奶茶色、燕麥白、焦糖棕" />
             </div>
             <div class="field full hide" id="logoHelpWrap">
-             <label>LOGO 提供方式</label>
-<div class="hint" style="margin:6px 0 0;">
-送出表單後，請將 LOGO 圖檔傳送至 LINE。
-</div>
 <a class="lineLink"
    href="https://line.me/ti/p/k8vS9REcTl"
    target="_blank">
@@ -1229,12 +1225,13 @@ showStatus(
 
 訂單編號：${payload.orderId}
 
-本次需求：
-${moduleText}
+我會先確認您的需求與價格，
+確認後會提供匯款資訊。
 
-預估總價：${formatMoney(payload.pricing.total)}
+匯款完成後，
+請加入 LINE 以取得設定步驟與程式碼：
 
-請將 LOGO 傳送至 LINE 並備註此訂單編號。`
+https://line.me/ti/p/k8vS9REcTl`
 )
         form.reset();
       } catch(err){
