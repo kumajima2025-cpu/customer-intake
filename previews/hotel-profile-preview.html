@@ -1,1 +1,409 @@
 
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OO寵物 ABC123｜住宿基本資料表</title>
+
+<style>
+:root{
+--bg:#F6F1E9;
+--card:#ffffff;
+--line:#E3D8C8;
+--title:#EDE6DA;
+--text:#3C3A36;
+--muted:#7B746B;
+--btn:#2f2d2a;
+}
+
+html,body{
+width:100%;
+max-width:100%;
+overflow-x:hidden;
+}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+
+*{box-sizing:border-box}
+img,canvas{max-width:100%;display:block}
+
+.wrap{
+width:100%;
+max-width:900px;
+margin:0 auto;
+padding:18px;
+}
+
+/* 預覽標頭 */
+
+.previewHeader{
+text-align:center;
+margin-bottom:18px;
+}
+
+.previewTag{
+display:inline-block;
+padding:4px 10px;
+border:1px solid #C35A2E;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+color:#C35A2E;
+margin-bottom:10px;
+}
+
+.logoCircle{
+width:72px;
+height:72px;
+border-radius:50%;
+border:2px solid #E3D8C8;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:8px auto;
+font-weight:800;
+color:#C35A2E;
+}
+
+.brand{
+text-align:center;
+font-weight:800;
+letter-spacing:1px;
+margin-top:6px;
+}
+
+.barTitle{
+background:var(--btn);
+color:#fff;
+text-align:center;
+padding:12px 14px;
+border-radius:14px;
+font-weight:800;
+letter-spacing:3px;
+margin-bottom:10px;
+}
+
+.hint{
+color:var(--muted);
+font-size:13px;
+line-height:1.5;
+margin:10px 0 14px;
+text-align:center;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:18px;
+overflow:hidden;
+margin:12px 0;
+padding:14px;
+}
+
+.secTitle{
+font-weight:700;
+margin-bottom:10px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.grid3{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+@media(max-width:920px){
+.grid3{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:520px){
+.grid3{grid-template-columns:1fr;}
+}
+
+@media(max-width:760px){
+.grid{grid-template-columns:1fr;}
+}
+
+label{
+display:block;
+font-size:13px;
+margin:2px 0 6px;
+color:var(--muted);
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+border-radius:12px;
+border:1px solid var(--line);
+background:#fff;
+font-size:16px;
+color:var(--text);
+}
+
+textarea{
+min-height:86px;
+resize:vertical;
+}
+
+.row{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.chip{
+display:flex;
+gap:8px;
+align-items:center;
+padding:8px 10px;
+border:1px solid var(--line);
+border-radius:999px;
+background:#fff;
+font-size:14px;
+}
+
+.chip input{
+width:auto;
+}
+
+.small{
+font-size:12px;
+color:var(--muted);
+line-height:1.5;
+}
+
+.sigBox{
+background:#fff;
+border:1px dashed #cdbfae;
+border-radius:12px;
+padding:10px;
+}
+
+canvas{
+width:100%;
+height:180px;
+border:1px solid var(--line);
+border-radius:12px;
+}
+
+.btns{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+button{
+padding:11px 14px;
+border:0;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+background:var(--btn);
+color:#fff;
+}
+
+.primary{background:var(--btn);}
+.ghost{
+background:#fff;
+border:1px solid var(--line);
+color:var(--text);
+}
+
+.footer{
+margin:14px 0 24px;
+font-size:12px;
+color:var(--muted);
+line-height:1.5;
+}
+
+.status{
+margin-top:10px;
+font-size:14px;
+}
+
+.ok{color:#1b7f3a;}
+.bad{color:#b00020;}
+
+.infoBox{
+background:#fff;
+border:1px solid var(--line);
+border-radius:14px;
+padding:12px 14px;
+margin-bottom:10px;
+}
+
+.infoTitle{
+font-weight:800;
+margin-bottom:6px;
+}
+
+.infoLine{
+font-size:14px;
+color:var(--muted);
+line-height:1.5;
+}
+
+.infoTitle::before{
+content:"";
+display:inline-block;
+width:4px;
+height:14px;
+background:var(--line);
+border-radius:999px;
+margin-right:8px;
+vertical-align:middle;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="previewHeader">
+
+<div class="previewTag">PREVIEW</div>
+
+<div class="logoCircle">LOGO</div>
+
+<div class="brand">OO寵物 ABC123</div>
+
+</div>
+
+<div class="barTitle">— 基本資料表 —</div>
+<div class="hint">請於住宿前填寫完成本資料表！</div>
+
+<div class="card">
+
+<div class="secTitle">飼主資料</div>
+
+<div class="grid">
+
+<div>
+<label>主要聯絡人</label>
+<input placeholder="例：陳小美">
+</div>
+
+<div>
+<label>手機號碼</label>
+<input placeholder="09xxxxxxxx">
+</div>
+
+<div>
+<label>Email</label>
+<input placeholder="you@example.com">
+</div>
+
+<div>
+<label>現居地址</label>
+<input placeholder="縣市／區／路／號">
+</div>
+
+</div>
+
+<div style="height:10px"></div>
+
+<div class="secTitle">備用聯絡人</div>
+
+<div class="grid">
+
+<div>
+<label>備用聯絡人</label>
+<input placeholder="例：王小名">
+</div>
+
+<div>
+<label>聯絡人手機</label>
+<input placeholder="09xxxxxxxx">
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="secTitle">寵物資料</div>
+
+<div class="grid3">
+
+<div>
+<label>名字</label>
+<input placeholder="例：Lucky">
+</div>
+
+<div>
+<label>性別</label>
+<select>
+<option>請選擇</option>
+<option>男</option>
+<option>女</option>
+</select>
+</div>
+
+<div>
+<label>品種</label>
+<input placeholder="例：貴賓">
+</div>
+
+<div>
+<label>毛色</label>
+<input placeholder="例：白色">
+</div>
+
+<div>
+<label>出生日期</label>
+<input placeholder="2021/02/14">
+</div>
+
+<div>
+<label>是否已絕育</label>
+<select>
+<option>請選擇</option>
+<option>已絕育</option>
+<option>未絕育</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="secTitle">飼主簽名</div>
+
+<div class="sigBox">
+<div class="small">請在下方簽名</div>
+<canvas></canvas>
+
+<div class="btns">
+<button class="ghost">清除簽名</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+送出即表示您所填資料為真，並同意住宿期間店家依照安全與衛生原則進行照護。
+</div>
+
+</div>
+
+</body>
+</html>
