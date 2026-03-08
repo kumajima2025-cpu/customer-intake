@@ -546,8 +546,17 @@ ctx.lineCap="round";
 resize();
 window.addEventListener("resize",resize);
 
-let drawing=false;
+// 假簽名 (preview用)
+function drawFakeSignature(){
+ctx.beginPath();
+ctx.moveTo(40,120);
+ctx.bezierCurveTo(120,20,180,200,260,110);
+ctx.bezierCurveTo(300,70,340,150,420,90);
+ctx.stroke();
+}
 
+drawFakeSignature();
+  
 canvas.addEventListener("pointerdown",e=>{
 drawing=true;
 ctx.beginPath();
