@@ -472,6 +472,16 @@
     return (document.getElementById(id)?.value || "").trim();
   }
 
+  function setVal(id, value){
+    const el = document.getElementById(id);
+    if(el) el.value = value;
+  }
+
+  function setSelect(id, value){
+    const el = document.getElementById(id);
+    if(el) el.value = value;
+  }
+
   function setStatus(msg, ok=false){
     const el = document.getElementById('status');
     el.textContent = msg;
@@ -606,6 +616,60 @@
     }catch(err){
       setStatus("送出失敗：" + err.message);
     }
+  });
+
+  /* ===== 示範用假資料 ===== */
+  function demoFillExample(){
+    setVal("owner_name","陳小美");
+    setVal("owner_phone","0912345678");
+    setVal("owner_email","demo@example.com");
+    setVal("owner_address","台北市板橋區幸福路88號");
+
+    setVal("backup_name","王小名");
+    setVal("backup_phone","0987654321");
+
+    setVal("pet_name","Lucky");
+    setSelect("pet_sex","男");
+    setVal("pet_breed","比熊犬");
+    setVal("pet_color","白色");
+    setVal("pet_birth_date","2021/02/14");
+    setSelect("pet_neutered","已絕育");
+    setVal("pet_deworm_date","2026/03/01");
+    setSelect("pet_deworm_way","口服");
+
+    setVal("pet_chip","900123456789012");
+    setVal("pet_rabies","2025/12/20");
+
+    const abnormal = document.querySelector('input[name="phys_status"][value="正常"]');
+    if(abnormal) abnormal.checked = true;
+
+    document.querySelectorAll('#disease_row input[type="checkbox"]').forEach(el=>{
+      if(el.value === "關節問題" || el.value === "其它"){
+        el.checked = true;
+      }
+    });
+
+    setVal("pet_wound","無");
+    setVal("pet_other_disease","腸胃較敏感");
+    setSelect("emergency_consent","同意");
+    setVal("note","早晚各半杯飼料，晚上飯後補充保健品；個性親人但怕突然大聲音。");
+
+    setTimeout(()=>{
+      resizeCanvas();
+      ctx.beginPath();
+      ctx.moveTo(40,120);
+      ctx.lineTo(90,85);
+      ctx.lineTo(130,125);
+      ctx.lineTo(175,78);
+      ctx.lineTo(225,122);
+      ctx.lineTo(280,88);
+      ctx.lineTo(330,120);
+      ctx.stroke();
+    }, 300);
+  }
+
+  window.addEventListener("load", ()=>{
+    setTimeout(demoFillExample, 400);
   });
 </script>
 </body>
