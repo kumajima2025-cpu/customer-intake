@@ -213,6 +213,7 @@
       text-decoration:none;
       transition:.18s ease;
       cursor:pointer;
+      white-space:nowrap;
     }
 
     .previewBtn:hover{
@@ -384,12 +385,42 @@
       box-shadow:0 8px 24px rgba(0,0,0,.08);
     }
 
+    .lineJoinBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      background:#06C755;
+      color:#fff;
+      box-shadow:0 12px 24px rgba(6,199,85,.25);
+    }
+
+    .lineJoinBtn:hover{
+      transform:translateY(-1px);
+    }
+
     @media (max-width: 760px){
-      .grid, .radioRow, .priceWrap, .optionItem{ grid-template-columns:1fr; }
+      .grid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
       .cardBody{ padding:16px; }
       .wrap{ padding:20px 14px 54px; }
       .totalValue{ font-size:28px; }
-      .previewBtn{ min-height:46px; }
+
+      .optionItem{
+        grid-template-columns:minmax(0,1fr) auto;
+        gap:8px;
+        align-items:stretch;
+      }
+
+      .previewBtn{
+        min-height:46px;
+        min-width:88px;
+        padding:0 12px;
+        font-size:14px;
+      }
+
       .previewPanel{
         height:min(90vh, 900px);
         border-radius:18px;
@@ -401,10 +432,10 @@
   <div class="wrap">
     <div class="hero">
       <div class="brand">線上客製化需求表</div>
-<div class="sub">
-這是一套可依店家需求客製化製作「線上定型化契約」的系統。<br>
-填寫下方需求表後，將依照勾選內容為你建立專屬版本哦～
-</div>
+      <div class="sub">
+        這是一套可依店家需求客製化製作「線上定型化契約」的系統。<br>
+        填寫下方需求表後，將依照勾選內容為你建立專屬版本哦～
+      </div>
     </div>
 
     <form id="intakeForm">
@@ -727,16 +758,18 @@
             <div class="totalValue" id="totalPrice">$0</div>
             <div class="totalDesc" id="totalDesc">請勾選上方製作項目後自動計算。</div>
           </div>
-              <div class="footerNote" style="margin-top:14px;line-height:1.8;">
-      <strong>製作流程</strong><br>
-      1. 送出需求表後，請先加入 LINE 確認需求內容。<br>
-      2. 確認製作細節與報價後，會提供匯款資訊。<br>
-      3. 完成匯款後，才會提供設定步驟與客製程式碼。
-    </div>
+
+          <div class="footerNote" style="margin-top:14px;line-height:1.8;">
+            <strong>製作流程</strong><br>
+            1. 送出需求表後，請先加入 LINE 確認需求內容。<br>
+            2. 確認製作細節與報價後，會提供匯款資訊。<br>
+            3. 完成匯款後，才會提供設定步驟與客製程式碼。
+          </div>
+
           <div class="footerNote" style="margin-top:10px;line-height:1.8;">
-  <strong>補充說明</strong><br>
-  本程式交付後，若後續需要修改契約內容、店家資料或部分文字，可依照教學自行調整。
-</div>
+            <strong>補充說明</strong><br>
+            本程式交付後，若後續需要修改契約內容、店家資料或部分文字，可依照教學自行調整。
+          </div>
         </div>
       </section>
 
@@ -763,6 +796,38 @@
           <div class="previewBody" id="previewBody"></div>
         </div>
       </div>
+
+      <div class="previewModal" id="successModal">
+        <div class="previewPanel" style="width:min(560px,100%);height:auto;">
+          <div class="previewHead">
+            <div class="previewTitle">送出成功</div>
+            <button type="button" class="previewClose" id="successClose">關閉</button>
+          </div>
+
+          <div class="cardBody" style="padding:24px;">
+            <div style="font-size:18px;font-weight:800;margin-bottom:10px;">
+              表單已成功送出 ✔️
+            </div>
+
+            <div id="successText" style="line-height:1.8; white-space:pre-line;"></div>
+
+            <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+              <a
+                href="https://line.me/ti/p/k8vS9REcTl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="lineJoinBtn"
+              >
+                加入 LINE 好友
+              </a>
+
+              <button type="button" class="btnGhost" id="successConfirmBtn">
+                我知道了
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 
@@ -776,7 +841,7 @@
       return `EW-${y}${m}${day}-${rand}`;
     }
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxusbCtp4RMt8Ijb0kHaiGOF4mClN-9fl_oX8aephfIJ0Q0bS0u5cxNnm4UIL2CyqU/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw_2ZGq2zCda0KT0n7o5T0cyQ7An8CiDiuz_flLnqIj8dfQvUuQJVoiRGG1qelqZ0ZN/exec";
 
     const PRICE_MAP = {
       contract_with_card: 5000,
@@ -813,6 +878,11 @@
     const previewTitle = document.getElementById('previewTitle');
     const previewBody = document.getElementById('previewBody');
     const previewClose = document.getElementById('previewClose');
+
+    const successModal = document.getElementById('successModal');
+    const successClose = document.getElementById('successClose');
+    const successConfirmBtn = document.getElementById('successConfirmBtn');
+    const successText = document.getElementById('successText');
 
     function showStatus(type, message){
       statusBox.className = 'status show ' + (type === 'ok' ? 'ok' : 'err');
@@ -937,43 +1007,42 @@
     }
 
     function updatePrice(){
-  const modules = getModules();
-  let total = 0;
-  const selectedText = [];
+      const modules = getModules();
+      let total = 0;
+      const selectedText = [];
 
-  modules.forEach(key => {
-    if(key === 'physical_card'){
-      total += getPhysicalCardPrice();
-      selectedText.push(
-        getRadioValue('physicalCardMode') === 'custom'
-          ? '實體顧客資料卡（自行提供內容）'
-          : '實體顧客資料卡（照公版範本）'
-      );
-    }else if(key === 'poster'){
-      total += getPosterPrice();
-      selectedText.push(
-        getRadioValue('posterMode') === 'custom'
-          ? '半開契約海報（自行提供內容）'
-          : '半開契約海報（照公版範本）'
-      );
-    }else{
-      total += PRICE_MAP[key] || 0;
-      const map = {
-        contract_with_card: '定型化契約＋顧客資料卡',
-        contract_only: '定型化契約',
-        hotel_profile: '住宿基本資料卡',
-        hotel_checkout: '住宿明細確認單'
-      };
-      selectedText.push(map[key] || key);
+      modules.forEach(key => {
+        if(key === 'physical_card'){
+          total += getPhysicalCardPrice();
+          selectedText.push(
+            getRadioValue('physicalCardMode') === 'custom'
+              ? '實體顧客資料卡（自行提供內容）'
+              : '實體顧客資料卡（照公版範本）'
+          );
+        }else if(key === 'poster'){
+          total += getPosterPrice();
+          selectedText.push(
+            getRadioValue('posterMode') === 'custom'
+              ? '半開契約海報（自行提供內容）'
+              : '半開契約海報（照公版範本）'
+          );
+        }else{
+          total += PRICE_MAP[key] || 0;
+          const map = {
+            contract_with_card: '定型化契約＋顧客資料卡',
+            contract_only: '定型化契約',
+            hotel_profile: '住宿基本資料卡',
+            hotel_checkout: '住宿明細確認單'
+          };
+          selectedText.push(map[key] || key);
+        }
+      });
+
+      totalPrice.textContent = formatMoney(total);
+      totalDesc.textContent = selectedText.length
+        ? '目前勾選：' + selectedText.join('、')
+        : '請勾選上方製作項目後自動計算。';
     }
-  });
-
-  totalPrice.textContent = formatMoney(total);
-  totalDesc.textContent = selectedText.length
-    ? '目前勾選：' + selectedText.join('、')
-    : '請勾選上方製作項目後自動計算。';
-}
-      
 
     function syncContentSections(){
       toggleContractCustom();
@@ -1080,6 +1149,17 @@
       document.body.style.overflow = '';
     }
 
+    function openSuccessModal(message){
+      successText.textContent = message;
+      successModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSuccessModal(){
+      successModal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
     document.querySelectorAll('input[name="modules"]').forEach(el => {
       el.addEventListener('change', syncContentSections);
     });
@@ -1150,9 +1230,19 @@
       }
     });
 
+    successClose.addEventListener('click', closeSuccessModal);
+    successConfirmBtn.addEventListener('click', closeSuccessModal);
+
+    successModal.addEventListener('click', (e) => {
+      if(e.target === successModal){
+        closeSuccessModal();
+      }
+    });
+
     document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && previewModal.classList.contains('show')){
-        closePreview();
+      if(e.key === 'Escape'){
+        if(previewModal.classList.contains('show')) closePreview();
+        if(successModal.classList.contains('show')) closeSuccessModal();
       }
     });
 
@@ -1206,11 +1296,8 @@
         form.reset();
 
         setTimeout(() => {
-          showStatus(
-  'ok',
-  `表單已成功送出 ✔️
-
-訂單編號：${payload.orderId}
+          openSuccessModal(
+`訂單編號：${payload.orderId}
 
 請先加入 LINE 確認內容：
 https://line.me/ti/p/k8vS9REcTl
@@ -1220,7 +1307,7 @@ https://line.me/ti/p/k8vS9REcTl
 
 完成匯款後，
 才會提供設定步驟與客製程式碼唷～`
-);
+          );
         }, 0);
 
       } catch(err){
