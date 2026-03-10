@@ -1381,7 +1381,84 @@
       }
     });
   }
+/* ===== 示範用假資料 ===== */
+function demoFillExample(){
 
+  // 基本資料
+  setVal("owner_name","陳小美");
+  setVal("pet_name","Lucky");
+  setVal("stay_date","2026/03/18~2026/03/20");
+
+  // 活動日期
+  ensureDayCount(3);
+
+  setVal("d1_date","2026/03/18");
+  setRadio("d1_am","良好");
+  setRadio("d1_noon","普通");
+  setRadio("d1_pm","良好");
+  setRadio("d1_toilet","正常");
+
+  setVal("d2_date","2026/03/19");
+  setRadio("d2_am","良好");
+  setRadio("d2_noon","良好");
+  setRadio("d2_pm","普通");
+  setRadio("d2_toilet","正常");
+
+  setVal("d3_date","2026/03/20");
+  setRadio("d3_am","普通");
+  setRadio("d3_noon","良好");
+  setRadio("d3_pm","良好");
+  setRadio("d3_toilet","正常");
+
+  // 生活習慣
+  setVal("lifestyle","喜歡抱抱、午睡時間長、怕突然大聲聲音");
+
+  // 餵食
+  setCb("feed_am_kibble",true);
+  setCb("feed_noon_can",true);
+  setCb("feed_pm_kibble",true);
+
+  // 藥物
+  setCb("med_pm_after",true);
+  setVal("med_pm_note","保健品一顆");
+
+  // 個性
+  setCb("p_friendly_human",true);
+  setCb("p_friendly_dog",true);
+  setCb("p_stable",true);
+  setCb("p_play_high",true);
+
+  // 附加
+  setVal("extra_walk","每日兩次散步");
+  setVal("extra_brush","每天梳毛一次");
+
+  // 費用
+  feeRowsEl.innerHTML="";
+  feeRowsEl.appendChild(feeRowTpl("住宿費","1200","3"));
+  feeRowsEl.appendChild(feeRowTpl("散步服務","200","3"));
+  feeRowsEl.appendChild(feeRowTpl("刷牙","100","3"));
+  calcFee();
+
+  // 簽名
+  setTimeout(()=>{
+    if(!canvas || !ctx) return;
+    resizeCanvas();
+
+    ctx.beginPath();
+    ctx.moveTo(40,120);
+    ctx.lineTo(120,60);
+    ctx.lineTo(200,120);
+    ctx.lineTo(260,70);
+    ctx.lineTo(320,120);
+    ctx.stroke();
+  },300);
+}
+
+/* 自動填入示範資料 */
+window.addEventListener("load", ()=>{
+  setTimeout(demoFillExample,500);
+});
+  
 })();
 </script>
 
