@@ -301,6 +301,7 @@
     height:20px !important;
     margin:0 !important;
   }
+
   #cardActivity .leftCol{
     display:flex;
     align-items:flex-start;
@@ -642,6 +643,7 @@
   const isConfirm = !!dataParam || !!idParam;
 
   const pad = n => String(n).padStart(2,'0');
+
   function setStatus(msg, ok=false){
     const el = document.getElementById('status');
     if(!el) return;
@@ -652,6 +654,7 @@
   function escapeB64Json(obj){
     return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
   }
+
   function unescapeB64Json(b64){
     return JSON.parse(decodeURIComponent(escape(atob(b64))));
   }
@@ -660,6 +663,7 @@
     const el = document.querySelector(`input[name="${name}"]:checked`);
     return el ? el.value : "";
   }
+
   function setRadio(name, value){
     if(!value) return;
     const el = document.querySelector(`input[name="${name}"][value="${CSS.escape(value)}"]`);
@@ -678,11 +682,13 @@
       if(allow.includes(el.id)) return;
       el.disabled = true;
     });
+
     document.querySelectorAll('select').forEach(el=> el.disabled = true);
     document.body.classList.add("ro");
   }
 
   const feeRowsEl = document.getElementById("feeRows");
+
   function feeRowTpl(item="", price="", qty="1"){
     const row = document.createElement("div");
     row.className = "feeRow";
@@ -742,6 +748,7 @@
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#111';
   }
+
   window.addEventListener('resize', resizeCanvas);
 
   let drawing = false;
@@ -762,6 +769,7 @@
     drawing = true;
     last = getPos(e);
   }
+
   function move(e){
     if(!canvas || !ctx) return;
     if(!drawing) return;
@@ -773,6 +781,7 @@
     ctx.stroke();
     last = p;
   }
+
   function end(e){
     if(!canvas || !ctx) return;
     if(!drawing) return;
@@ -902,6 +911,7 @@
     const el = document.getElementById(id);
     if(el) el.checked = !!v;
   }
+
   function setVal(id, v){
     const el = document.getElementById(id);
     if(el) el.value = v || "";
@@ -1381,86 +1391,79 @@
       }
     });
   }
-/* ===== 示範用假資料 ===== */
-function demoFillExample(){
 
-  // 基本資料
-  setVal("owner_name","陳小美");
-  setVal("pet_name","Lucky");
-  setVal("stay_date","2026/03/18~2026/03/20");
+  /* ===== 示範用假資料 ===== */
+  function demoFillExample(){
+    setVal("owner_name","陳小美");
+    setVal("pet_name","Lucky");
+    setVal("stay_date","2026/03/18~2026/03/20");
 
-  // 活動日期
-  ensureDayCount(3);
+    ensureDayCount(3);
 
-  setVal("d1_date","2026/03/18");
-  setRadio("d1_am","良好");
-  setRadio("d1_noon","普通");
-  setRadio("d1_pm","良好");
-  setRadio("d1_toilet","正常");
+    setVal("d1_date","2026/03/18");
+    setRadio("d1_am","良好");
+    setRadio("d1_noon","普通");
+    setRadio("d1_pm","良好");
+    setRadio("d1_toilet","正常");
 
-  setVal("d2_date","2026/03/19");
-  setRadio("d2_am","良好");
-  setRadio("d2_noon","良好");
-  setRadio("d2_pm","普通");
-  setRadio("d2_toilet","正常");
+    setVal("d2_date","2026/03/19");
+    setRadio("d2_am","良好");
+    setRadio("d2_noon","良好");
+    setRadio("d2_pm","普通");
+    setRadio("d2_toilet","正常");
 
-  setVal("d3_date","2026/03/20");
-  setRadio("d3_am","普通");
-  setRadio("d3_noon","良好");
-  setRadio("d3_pm","良好");
-  setRadio("d3_toilet","正常");
+    setVal("d3_date","2026/03/20");
+    setRadio("d3_am","普通");
+    setRadio("d3_noon","良好");
+    setRadio("d3_pm","良好");
+    setRadio("d3_toilet","正常");
 
-  // 生活習慣
-  setVal("lifestyle","喜歡抱抱、午睡時間長、怕突然大聲聲音");
+    setVal("lifestyle","喜歡抱抱、午睡時間長、怕突然大聲聲音");
+    setCb("feed_am_kibble",true);
+    setCb("feed_noon_can",true);
+    setCb("feed_pm_kibble",true);
 
-  // 餵食
-  setCb("feed_am_kibble",true);
-  setCb("feed_noon_can",true);
-  setCb("feed_pm_kibble",true);
+    setCb("med_pm_after",true);
+    setVal("med_pm_note","保健品一顆");
 
-  // 藥物
-  setCb("med_pm_after",true);
-  setVal("med_pm_note","保健品一顆");
+    setCb("p_friendly_human",true);
+    setCb("p_friendly_dog",true);
+    setCb("p_stable",true);
+    setCb("p_play_high",true);
 
-  // 個性
-  setCb("p_friendly_human",true);
-  setCb("p_friendly_dog",true);
-  setCb("p_stable",true);
-  setCb("p_play_high",true);
+    setVal("extra_walk","每日兩次散步");
+    setVal("extra_brush","每天梳毛一次");
 
-  // 附加
-  setVal("extra_walk","每日兩次散步");
-  setVal("extra_brush","每天梳毛一次");
+    feeRowsEl.innerHTML="";
+    feeRowsEl.appendChild(feeRowTpl("住宿費","1200","3"));
+    feeRowsEl.appendChild(feeRowTpl("散步服務","200","3"));
+    feeRowsEl.appendChild(feeRowTpl("刷牙","100","3"));
+    calcFee();
 
-  // 費用
-  feeRowsEl.innerHTML="";
-  feeRowsEl.appendChild(feeRowTpl("住宿費","1200","3"));
-  feeRowsEl.appendChild(feeRowTpl("散步服務","200","3"));
-  feeRowsEl.appendChild(feeRowTpl("刷牙","100","3"));
-  calcFee();
+    window.__setShowAllDays(true);
 
-  // 簽名
-  setTimeout(()=>{
-    if(!canvas || !ctx) return;
-    resizeCanvas();
+    setTimeout(()=>{
+      resizeCanvas();
+      if(!canvas || !ctx) return;
 
-    ctx.beginPath();
-    ctx.moveTo(40,120);
-    ctx.lineTo(120,60);
-    ctx.lineTo(200,120);
-    ctx.lineTo(260,70);
-    ctx.lineTo(320,120);
-    ctx.stroke();
-  },300);
-}
-  
+      ctx.beginPath();
+      ctx.moveTo(40,120);
+      ctx.lineTo(90,85);
+      ctx.lineTo(130,125);
+      ctx.lineTo(175,78);
+      ctx.lineTo(225,122);
+      ctx.lineTo(280,88);
+      ctx.lineTo(330,120);
+      ctx.stroke();
+    }, 300);
+  }
 
-/* 自動填入示範資料 */
-window.addEventListener("load", ()=>{
-  setTimeout(demoFillExample,500);
-});
-  window.__setShowAllDays(true);
-  
+  window.addEventListener("load", ()=>{
+    setTimeout(()=>{
+      demoFillExample();
+    }, 400);
+  });
+
 })();
 </script>
 
