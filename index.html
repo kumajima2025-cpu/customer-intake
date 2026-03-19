@@ -150,7 +150,8 @@
     .chip,
     .radioCard,
     .priceCard,
-    .totalCard{
+    .totalCard,
+    .fixedCard{
       border:1px solid var(--line);
       border-radius:16px;
       background:#fff;
@@ -186,6 +187,18 @@
       border-color:var(--accent-2);
       box-shadow:0 0 0 4px rgba(184,146,106,.10);
       background:#FFFCF7;
+    }
+
+    .fixedCard{
+      padding:14px 16px;
+      background:#FCF8F2;
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    .fixedTitle{
+      font-weight:800;
+      margin-bottom:4px;
     }
 
     .optionList{
@@ -403,9 +416,9 @@
       transform:translateY(-1px);
     }
 
-.emailRow{
-  width:100%;
-}
+    .emailRow{
+      width:100%;
+    }
 
     @media (max-width: 760px){
       .grid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
@@ -612,44 +625,23 @@
           </div>
 
           <div id="basicCardSection" class="hide" style="margin-top:16px;">
-            <div class="field">
-              <label>基本資料卡<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="basicCardMode" value="template">照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="basicCardMode" value="custom">自行提供內容</label></div>
-              </div>
-            </div>
-            <div class="field full hide" id="basicCardCustomWrap" style="margin-top:12px;">
-              <label for="basicCardCustomText">基本資料卡內容補充</label>
-              <textarea id="basicCardCustomText" name="basicCardCustomText" placeholder="請填寫顧客資料卡內容需求"></textarea>
+            <div class="fixedCard">
+              <div class="fixedTitle">顧客資料卡</div>
+              此項目固定依照公版製作。
             </div>
           </div>
 
           <div id="hotelProfileSection" class="hide" style="margin-top:16px;">
-            <div class="field">
-              <label>住宿基本資料卡<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="hotelProfileMode" value="template">照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="hotelProfileMode" value="custom">自行提供內容</label></div>
-              </div>
-            </div>
-            <div class="field full hide" id="hotelProfileCustomWrap" style="margin-top:12px;">
-              <label for="hotelProfileCustomText">住宿基本資料卡內容補充</label>
-              <textarea id="hotelProfileCustomText" name="hotelProfileCustomText" placeholder="請填寫住宿基本資料卡內容需求"></textarea>
+            <div class="fixedCard">
+              <div class="fixedTitle">住宿基本資料卡</div>
+              此項目固定依照公版製作。
             </div>
           </div>
 
           <div id="hotelCheckoutSection" class="hide" style="margin-top:16px;">
-            <div class="field">
-              <label>住宿明細確認單<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="hotelCheckoutMode" value="template">照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="hotelCheckoutMode" value="custom">自行提供內容</label></div>
-              </div>
-            </div>
-            <div class="field full hide" id="hotelCheckoutCustomWrap" style="margin-top:12px;">
-              <label for="hotelCheckoutCustomText">住宿明細確認單內容補充</label>
-              <textarea id="hotelCheckoutCustomText" name="hotelCheckoutCustomText" placeholder="請填寫住宿明細確認單內容需求"></textarea>
+            <div class="fixedCard">
+              <div class="fixedTitle">住宿明細確認單</div>
+              此項目固定依照公版製作。
             </div>
           </div>
 
@@ -678,6 +670,20 @@
             <div class="field full hide" id="posterCustomWrap" style="margin-top:12px;">
               <label for="posterCustomText">半開契約海報內容補充</label>
               <textarea id="posterCustomText" name="posterCustomText" placeholder="請填寫半開海報內容需求"></textarea>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <div class="field">
+              <label>進階客製需求</label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="fullCustomMode" value="no" checked>依照上述規則製作</label></div>
+                <div class="radioCard"><label><input type="radio" name="fullCustomMode" value="yes">完全客製化（+$5000）</label></div>
+              </div>
+            </div>
+            <div class="field full hide" id="fullCustomWrap" style="margin-top:12px;">
+              <label for="fullCustomText">完全客製化需求說明</label>
+              <textarea id="fullCustomText" name="fullCustomText" placeholder="請填寫希望客製化的內容、版型、欄位或流程需求"></textarea>
             </div>
           </div>
         </div>
@@ -775,6 +781,10 @@
               <div class="priceTitle">半開海報契約設計（自行提供內容）</div>
               <div class="priceAmount">$1500</div>
               <div class="hint" style="margin:6px 0 0;">含印刷費用 $383</div>
+            </div>
+            <div class="priceCard">
+              <div class="priceTitle">完全客製化加價</div>
+              <div class="priceAmount">$5000</div>
             </div>
           </div>
 
@@ -876,7 +886,8 @@
       physical_card_template: 1500,
       physical_card_custom: 2000,
       poster_template: 1000,
-      poster_custom: 1500
+      poster_custom: 1500,
+      full_custom: 5000
     };
 
     const form = document.getElementById('intakeForm');
@@ -886,15 +897,13 @@
     const customThemeWrap = document.getElementById('customThemeWrap');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
-    const basicCardCustomWrap = document.getElementById('basicCardCustomWrap');
     const hotelProfileSection = document.getElementById('hotelProfileSection');
-    const hotelProfileCustomWrap = document.getElementById('hotelProfileCustomWrap');
     const hotelCheckoutSection = document.getElementById('hotelCheckoutSection');
-    const hotelCheckoutCustomWrap = document.getElementById('hotelCheckoutCustomWrap');
     const physicalCardSection = document.getElementById('physicalCardSection');
     const physicalCardCustomWrap = document.getElementById('physicalCardCustomWrap');
     const posterSection = document.getElementById('posterSection');
     const posterCustomWrap = document.getElementById('posterCustomWrap');
+    const fullCustomWrap = document.getElementById('fullCustomWrap');
     const totalPrice = document.getElementById('totalPrice');
     const totalDesc = document.getElementById('totalDesc');
     const operationHint = document.getElementById('operationHint');
@@ -939,43 +948,16 @@
     function toggleBasicCardSection(){
       const show = getModules().includes('contract_with_card');
       basicCardSection.classList.toggle('hide', !show);
-      if(!show){
-        document.querySelectorAll('input[name="basicCardMode"]').forEach(el => el.checked = false);
-        document.getElementById('basicCardCustomText').value = '';
-        basicCardCustomWrap.classList.add('hide');
-      }
-    }
-
-    function toggleBasicCardCustom(){
-      basicCardCustomWrap.classList.toggle('hide', getRadioValue('basicCardMode') !== 'custom');
     }
 
     function toggleHotelProfileSection(){
       const show = getModules().includes('hotel_profile');
       hotelProfileSection.classList.toggle('hide', !show);
-      if(!show){
-        document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => el.checked = false);
-        document.getElementById('hotelProfileCustomText').value = '';
-        hotelProfileCustomWrap.classList.add('hide');
-      }
-    }
-
-    function toggleHotelProfileCustom(){
-      hotelProfileCustomWrap.classList.toggle('hide', getRadioValue('hotelProfileMode') !== 'custom');
     }
 
     function toggleHotelCheckoutSection(){
       const show = getModules().includes('hotel_checkout');
       hotelCheckoutSection.classList.toggle('hide', !show);
-      if(!show){
-        document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => el.checked = false);
-        document.getElementById('hotelCheckoutCustomText').value = '';
-        hotelCheckoutCustomWrap.classList.add('hide');
-      }
-    }
-
-    function toggleHotelCheckoutCustom(){
-      hotelCheckoutCustomWrap.classList.toggle('hide', getRadioValue('hotelCheckoutMode') !== 'custom');
     }
 
     function togglePhysicalCardSection(){
@@ -1006,6 +988,13 @@
       posterCustomWrap.classList.toggle('hide', getRadioValue('posterMode') !== 'custom');
     }
 
+    function toggleFullCustom(){
+      fullCustomWrap.classList.toggle('hide', getRadioValue('fullCustomMode') !== 'yes');
+      if(getRadioValue('fullCustomMode') !== 'yes'){
+        document.getElementById('fullCustomText').value = '';
+      }
+    }
+
     function updateOperationHint(){
       const mode = getRadioValue('operationMode');
       if(mode === 'self'){
@@ -1029,6 +1018,10 @@
     function getPosterPrice(){
       const mode = getRadioValue('posterMode');
       return mode === 'custom' ? PRICE_MAP.poster_custom : PRICE_MAP.poster_template;
+    }
+
+    function getFullCustomPrice(){
+      return getRadioValue('fullCustomMode') === 'yes' ? PRICE_MAP.full_custom : 0;
     }
 
     function updatePrice(){
@@ -1063,6 +1056,11 @@
         }
       });
 
+      if(getRadioValue('fullCustomMode') === 'yes'){
+        total += PRICE_MAP.full_custom;
+        selectedText.push('完全客製化');
+      }
+
       totalPrice.textContent = formatMoney(total);
       totalDesc.textContent = selectedText.length
         ? '目前勾選：' + selectedText.join('、')
@@ -1072,15 +1070,13 @@
     function syncContentSections(){
       toggleContractCustom();
       toggleBasicCardSection();
-      toggleBasicCardCustom();
       toggleHotelProfileSection();
-      toggleHotelProfileCustom();
       toggleHotelCheckoutSection();
-      toggleHotelCheckoutCustom();
       togglePhysicalCardSection();
       togglePhysicalCardCustom();
       togglePosterSection();
       togglePosterCustom();
+      toggleFullCustom();
       updateOperationHint();
       updatePrice();
     }
@@ -1098,6 +1094,10 @@
           total += PRICE_MAP[key] || 0;
         }
       });
+
+      if(getRadioValue('fullCustomMode') === 'yes'){
+        total += PRICE_MAP.full_custom;
+      }
 
       const orderId = generateOrderId();
 
@@ -1117,16 +1117,24 @@
         content: {
           contractMode: getRadioValue('contractMode'),
           contractCustomText: form.contractCustomText.value.trim(),
-          basicCardMode: getRadioValue('basicCardMode'),
-          basicCardCustomText: form.basicCardCustomText.value.trim(),
-          hotelProfileMode: getRadioValue('hotelProfileMode'),
-          hotelProfileCustomText: form.hotelProfileCustomText.value.trim(),
-          hotelCheckoutMode: getRadioValue('hotelCheckoutMode'),
-          hotelCheckoutCustomText: form.hotelCheckoutCustomText.value.trim(),
+
+          basicCardMode: modules.includes('contract_with_card') ? 'template' : '',
+          basicCardCustomText: '',
+
+          hotelProfileMode: modules.includes('hotel_profile') ? 'template' : '',
+          hotelProfileCustomText: '',
+
+          hotelCheckoutMode: modules.includes('hotel_checkout') ? 'template' : '',
+          hotelCheckoutCustomText: '',
+
           physicalCardMode: getRadioValue('physicalCardMode'),
           physicalCardCustomText: form.physicalCardCustomText.value.trim(),
+
           posterMode: getRadioValue('posterMode'),
-          posterCustomText: form.posterCustomText.value.trim()
+          posterCustomText: form.posterCustomText.value.trim(),
+
+          fullCustomMode: getRadioValue('fullCustomMode'),
+          fullCustomText: form.fullCustomText.value.trim()
         },
         design: {
           theme: form.theme.value,
@@ -1145,6 +1153,7 @@
           physical_card_custom: 2000,
           poster_template: 1000,
           poster_custom: 1500,
+          full_custom: 5000,
           total: total
         }
       };
@@ -1197,27 +1206,6 @@
       });
     });
 
-    document.querySelectorAll('input[name="basicCardMode"]').forEach(el => {
-      el.addEventListener('change', () => {
-        toggleBasicCardCustom();
-        updatePrice();
-      });
-    });
-
-    document.querySelectorAll('input[name="hotelProfileMode"]').forEach(el => {
-      el.addEventListener('change', () => {
-        toggleHotelProfileCustom();
-        updatePrice();
-      });
-    });
-
-    document.querySelectorAll('input[name="hotelCheckoutMode"]').forEach(el => {
-      el.addEventListener('change', () => {
-        toggleHotelCheckoutCustom();
-        updatePrice();
-      });
-    });
-
     document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => {
       el.addEventListener('change', () => {
         togglePhysicalCardCustom();
@@ -1228,6 +1216,13 @@
     document.querySelectorAll('input[name="posterMode"]').forEach(el => {
       el.addEventListener('change', () => {
         togglePosterCustom();
+        updatePrice();
+      });
+    });
+
+    document.querySelectorAll('input[name="fullCustomMode"]').forEach(el => {
+      el.addEventListener('change', () => {
+        toggleFullCustom();
         updatePrice();
       });
     });
