@@ -198,7 +198,19 @@
 
     .fixedTitle{
       font-weight:800;
-      margin-bottom:4px;
+      margin-bottom:6px;
+    }
+
+    .fixedList{
+      margin:0;
+      padding-left:18px;
+      color:var(--text);
+    }
+
+    .fixedNote{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
     }
 
     .optionList{
@@ -616,38 +628,11 @@
             </div>
           </div>
 
-          <div id="basicCardSection" class="hide" style="margin-top:16px;">
+          <div id="templateNoticeSection" class="hide" style="margin-top:16px;">
             <div class="fixedCard">
-              <div class="fixedTitle">顧客資料卡</div>
-              此項目固定依照公版製作。
-            </div>
-          </div>
-
-          <div id="hotelProfileSection" class="hide" style="margin-top:16px;">
-            <div class="fixedCard">
-              <div class="fixedTitle">住宿基本資料卡</div>
-              此項目固定依照公版製作。
-            </div>
-          </div>
-
-          <div id="hotelCheckoutSection" class="hide" style="margin-top:16px;">
-            <div class="fixedCard">
-              <div class="fixedTitle">住宿明細確認單</div>
-              此項目固定依照公版製作。
-            </div>
-          </div>
-
-          <div id="physicalCardSection" class="hide" style="margin-top:16px;">
-            <div class="fixedCard">
-              <div class="fixedTitle">實體顧客資料卡</div>
-              此項目固定依照公版製作。
-            </div>
-          </div>
-
-          <div id="posterSection" class="hide" style="margin-top:16px;">
-            <div class="fixedCard">
-              <div class="fixedTitle">半開契約海報</div>
-              此項目固定依照公版製作。
+              <div class="fixedTitle">以下項目固定依照公版製作</div>
+              <ul class="fixedList" id="templateNoticeList"></ul>
+              <div class="fixedNote">如需另外調整內容或版型，可選擇下方完全客製化，詳細內容再討論。</div>
             </div>
           </div>
 
@@ -662,6 +647,7 @@
             <div class="field full hide" id="fullCustomWrap" style="margin-top:12px;">
               <label for="fullCustomText">完全客製化需求說明</label>
               <textarea id="fullCustomText" name="fullCustomText" placeholder="請填寫希望客製化的內容、版型、欄位或流程需求"></textarea>
+              <div class="hint" id="fullCustomHint" style="margin-top:6px;margin-bottom:0;">詳細內容再討論。</div>
             </div>
           </div>
         </div>
@@ -856,6 +842,14 @@
       full_custom: 2000
     };
 
+    const TEMPLATE_MODULE_LABELS = {
+      contract_with_card: '顧客資料卡',
+      hotel_profile: '住宿基本資料卡',
+      hotel_checkout: '住宿明細確認單',
+      physical_card: '實體顧客資料卡',
+      poster: '半開契約海報'
+    };
+
     const form = document.getElementById('intakeForm');
     const statusBox = document.getElementById('status');
     const previewBtn = document.getElementById('previewBtn');
@@ -863,11 +857,8 @@
     const customThemeWrap = document.getElementById('customThemeWrap');
     const contractSection = document.getElementById('contractSection');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
-    const basicCardSection = document.getElementById('basicCardSection');
-    const hotelProfileSection = document.getElementById('hotelProfileSection');
-    const hotelCheckoutSection = document.getElementById('hotelCheckoutSection');
-    const physicalCardSection = document.getElementById('physicalCardSection');
-    const posterSection = document.getElementById('posterSection');
+    const templateNoticeSection = document.getElementById('templateNoticeSection');
+    const templateNoticeList = document.getElementById('templateNoticeList');
     const fullCustomWrap = document.getElementById('fullCustomWrap');
     const totalPrice = document.getElementById('totalPrice');
     const totalDesc = document.getElementById('totalDesc');
@@ -943,24 +934,18 @@
       }
     }
 
-    function toggleBasicCardSection(){
-      basicCardSection.classList.toggle('hide', !getModules().includes('contract_with_card'));
-    }
+    function renderTemplateNotice(){
+      const modules = getModules();
+      const items = [];
 
-    function toggleHotelProfileSection(){
-      hotelProfileSection.classList.toggle('hide', !getModules().includes('hotel_profile'));
-    }
+      Object.keys(TEMPLATE_MODULE_LABELS).forEach(key => {
+        if(modules.includes(key)){
+          items.push(TEMPLATE_MODULE_LABELS[key]);
+        }
+      });
 
-    function toggleHotelCheckoutSection(){
-      hotelCheckoutSection.classList.toggle('hide', !getModules().includes('hotel_checkout'));
-    }
-
-    function togglePhysicalCardSection(){
-      physicalCardSection.classList.toggle('hide', !getModules().includes('physical_card'));
-    }
-
-    function togglePosterSection(){
-      posterSection.classList.toggle('hide', !getModules().includes('poster'));
+      templateNoticeSection.classList.toggle('hide', items.length === 0);
+      templateNoticeList.innerHTML = items.map(item => `<li>${item}</li>`).join('');
     }
 
     function toggleFullCustom(){
@@ -1017,11 +1002,7 @@
 
     function syncContentSections(){
       toggleContractSection();
-      toggleBasicCardSection();
-      toggleHotelProfileSection();
-      toggleHotelCheckoutSection();
-      togglePhysicalCardSection();
-      togglePosterSection();
+      renderTemplateNotice();
       toggleFullCustom();
       updateOperationHint();
       updatePrice();
