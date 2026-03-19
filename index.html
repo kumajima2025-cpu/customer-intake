@@ -123,6 +123,7 @@
     .req{ color:var(--danger); margin-left:4px; }
 
     input[type="text"],
+    input[type="email"],
     textarea,
     select{
       width:100%;
@@ -402,6 +403,11 @@
       transform:translateY(-1px);
     }
 
+    .emailRow{
+      max-width:453px;
+      margin-right:auto;
+    }
+
     @media (max-width: 760px){
       .grid, .radioRow, .priceWrap{ grid-template-columns:1fr; }
       .cardBody{ padding:16px; }
@@ -413,10 +419,11 @@
         gap:8px;
         align-items:stretch;
       }
-.emailRow{
-  max-width:453px;
-}
-      
+
+      .emailRow{
+        max-width:100%;
+      }
+
       .previewBtn{
         min-height:46px;
         min-width:88px;
@@ -429,7 +436,6 @@
         border-radius:18px;
       }
     }
-    
   </style>
 </head>
 <body data-system="ElaineWanCustomFormSystem" data-author="Elaine Wan" data-version="1.0">
@@ -451,34 +457,42 @@
               <label for="storeName">店家名稱<span class="req">*</span></label>
               <input id="storeName" name="storeName" type="text" required placeholder="例如：ＯＯ寵物有限公司" />
             </div>
+
             <div class="field">
               <label for="storeNameEn">英文店名</label>
               <input id="storeNameEn" name="storeNameEn" type="text" placeholder="例如：ＯＯPet Salon" />
             </div>
+
             <div class="field">
               <label for="storeLine">店家 LINE<span class="req">*</span></label>
               <input id="storeLine" name="storeLine" type="text" required placeholder="例如：@Abc12345" />
             </div>
-           <div class="field">
-  <label for="storeAddress">店家地址<span class="req">*</span></label>
-  <input id="storeAddress" name="storeAddress" type="text" required placeholder="請填寫完整地址" />
-</div>
 
-<div class="field full">
-  <label for="storeEmail">店家 Email（寄送副本 Email）<span class="req">*</span></label>
-  <input
-    id="storeEmail"
-    name="storeEmail"
-    type="email"
-    required
-    placeholder="例如：yourstore@gmail.com"
-  />
-</div>
+            <div class="field">
+              <label for="storeAddress">店家地址<span class="req">*</span></label>
+              <input id="storeAddress" name="storeAddress" type="text" required placeholder="請填寫完整地址" />
+            </div>
 
-<div class="field">
-  <label for="contactName">聯絡人姓名<span class="req">*</span></label>
-  <input id="contactName" name="contactName" type="text" required placeholder="請填寫聯絡窗口" />
-</div>
+            <div class="field full emailRow">
+              <label for="storeEmail">店家 Email（寄送副本 Email）<span class="req">*</span></label>
+              <input
+                id="storeEmail"
+                name="storeEmail"
+                type="email"
+                required
+                placeholder="例如：yourstore@gmail.com"
+              />
+            </div>
+
+            <div class="field">
+              <label for="contactName">聯絡人姓名<span class="req">*</span></label>
+              <input id="contactName" name="contactName" type="text" required placeholder="請填寫聯絡窗口" />
+            </div>
+
+            <div class="field">
+              <label for="contactLineId">聯絡人 LINE ID<span class="req">*</span></label>
+              <input id="contactLineId" name="contactLineId" type="text" required placeholder="例如：abc123" />
+            </div>
           </div>
         </div>
       </section>
@@ -1092,14 +1106,14 @@
         orderId,
         submittedAt: new Date().toISOString(),
         storeInfo: {
-  storeName: form.storeName.value.trim(),
-  storeNameEn: form.storeNameEn.value.trim(),
-  storeLine: form.storeLine.value.trim(),
-  storeAddress: form.storeAddress.value.trim(),
-  storeEmail: form.storeEmail.value.trim(),
-  contactName: form.contactName.value.trim(),
-  contactLineId: form.contactLineId.value.trim()
-},
+          storeName: form.storeName.value.trim(),
+          storeNameEn: form.storeNameEn.value.trim(),
+          storeLine: form.storeLine.value.trim(),
+          storeAddress: form.storeAddress.value.trim(),
+          storeEmail: form.storeEmail.value.trim(),
+          contactName: form.contactName.value.trim(),
+          contactLineId: form.contactLineId.value.trim()
+        },
         modules,
         content: {
           contractMode: getRadioValue('contractMode'),
