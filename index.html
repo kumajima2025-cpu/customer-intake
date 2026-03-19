@@ -257,16 +257,6 @@
     .totalValue{ font-size:32px; line-height:1.1; font-weight:800; color:var(--accent); }
     .totalDesc{ margin-top:8px; color:var(--muted); font-size:13px; }
 
-    .lineLink{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-weight:800;
-      color:var(--accent);
-      text-decoration:none;
-      word-break:break-all;
-    }
-
     .actions{
       display:flex;
       gap:12px;
@@ -611,17 +601,19 @@
       <section class="card">
         <div class="cardHead">C. 內容需求</div>
         <div class="cardBody">
-          <div class="field">
-            <label>契約內容<span class="req">*</span></label>
-            <div class="radioRow">
-              <div class="radioCard"><label><input type="radio" name="contractMode" value="template" required>照公版範本</label></div>
-              <div class="radioCard"><label><input type="radio" name="contractMode" value="custom" required>自行提供內容</label></div>
+          <div id="contractSection" class="hide">
+            <div class="field">
+              <label>契約內容<span class="req">*</span></label>
+              <div class="radioRow">
+                <div class="radioCard"><label><input type="radio" name="contractMode" value="template">照公版範本</label></div>
+                <div class="radioCard"><label><input type="radio" name="contractMode" value="custom">自行提供內容</label></div>
+              </div>
             </div>
-          </div>
 
-          <div class="field full hide" id="contractCustomWrap" style="margin-top:12px;">
-            <label for="contractCustomText">契約內容補充</label>
-            <textarea id="contractCustomText" name="contractCustomText" placeholder="請完整貼上契約內容"></textarea>
+            <div class="field full hide" id="contractCustomWrap" style="margin-top:12px;">
+              <label for="contractCustomText">契約內容補充</label>
+              <textarea id="contractCustomText" name="contractCustomText" placeholder="請完整貼上契約內容"></textarea>
+            </div>
           </div>
 
           <div id="basicCardSection" class="hide" style="margin-top:16px;">
@@ -646,30 +638,16 @@
           </div>
 
           <div id="physicalCardSection" class="hide" style="margin-top:16px;">
-            <div class="field">
-              <label>實體顧客資料卡<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="physicalCardMode" value="template">照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="physicalCardMode" value="custom">自行提供內容</label></div>
-              </div>
-            </div>
-            <div class="field full hide" id="physicalCardCustomWrap" style="margin-top:12px;">
-              <label for="physicalCardCustomText">實體顧客資料卡內容補充</label>
-              <textarea id="physicalCardCustomText" name="physicalCardCustomText" placeholder="請填寫實體顧客資料卡內容需求"></textarea>
+            <div class="fixedCard">
+              <div class="fixedTitle">實體顧客資料卡</div>
+              此項目固定依照公版製作。
             </div>
           </div>
 
           <div id="posterSection" class="hide" style="margin-top:16px;">
-            <div class="field">
-              <label>半開契約海報<span class="req">*</span></label>
-              <div class="radioRow">
-                <div class="radioCard"><label><input type="radio" name="posterMode" value="template">照公版範本</label></div>
-                <div class="radioCard"><label><input type="radio" name="posterMode" value="custom">自行提供內容</label></div>
-              </div>
-            </div>
-            <div class="field full hide" id="posterCustomWrap" style="margin-top:12px;">
-              <label for="posterCustomText">半開契約海報內容補充</label>
-              <textarea id="posterCustomText" name="posterCustomText" placeholder="請填寫半開海報內容需求"></textarea>
+            <div class="fixedCard">
+              <div class="fixedTitle">半開契約海報</div>
+              此項目固定依照公版製作。
             </div>
           </div>
 
@@ -763,23 +741,13 @@
               <div class="priceAmount">$3000</div>
             </div>
             <div class="priceCard">
-              <div class="priceTitle">實體顧客資料卡設計（照公版範本）</div>
+              <div class="priceTitle">實體顧客資料卡（公版）</div>
               <div class="priceAmount">$1500</div>
               <div class="hint" style="margin:6px 0 0;">含印刷費用 $1097，1本50張，共20本</div>
             </div>
             <div class="priceCard">
-              <div class="priceTitle">實體顧客資料卡設計（自行提供內容）</div>
-              <div class="priceAmount">$2000</div>
-              <div class="hint" style="margin:6px 0 0;">含印刷費用 $1097，1本50張，共20本</div>
-            </div>
-            <div class="priceCard">
-              <div class="priceTitle">半開海報契約設計（照公版範本）</div>
+              <div class="priceTitle">半開海報契約（公版）</div>
               <div class="priceAmount">$1000</div>
-              <div class="hint" style="margin:6px 0 0;">含印刷費用 $383</div>
-            </div>
-            <div class="priceCard">
-              <div class="priceTitle">半開海報契約設計（自行提供內容）</div>
-              <div class="priceAmount">$1500</div>
               <div class="hint" style="margin:6px 0 0;">含印刷費用 $383</div>
             </div>
             <div class="priceCard">
@@ -883,10 +851,8 @@
       contract_only: 3000,
       hotel_profile: 3000,
       hotel_checkout: 3000,
-      physical_card_template: 1500,
-      physical_card_custom: 2000,
-      poster_template: 1000,
-      poster_custom: 1500,
+      physical_card: 1500,
+      poster: 1000,
       full_custom: 2000
     };
 
@@ -895,14 +861,13 @@
     const previewBtn = document.getElementById('previewBtn');
     const theme = document.getElementById('theme');
     const customThemeWrap = document.getElementById('customThemeWrap');
+    const contractSection = document.getElementById('contractSection');
     const contractCustomWrap = document.getElementById('contractCustomWrap');
     const basicCardSection = document.getElementById('basicCardSection');
     const hotelProfileSection = document.getElementById('hotelProfileSection');
     const hotelCheckoutSection = document.getElementById('hotelCheckoutSection');
     const physicalCardSection = document.getElementById('physicalCardSection');
-    const physicalCardCustomWrap = document.getElementById('physicalCardCustomWrap');
     const posterSection = document.getElementById('posterSection');
-    const posterCustomWrap = document.getElementById('posterCustomWrap');
     const fullCustomWrap = document.getElementById('fullCustomWrap');
     const totalPrice = document.getElementById('totalPrice');
     const totalDesc = document.getElementById('totalDesc');
@@ -937,55 +902,65 @@
       return Array.from(document.querySelectorAll('input[name="modules"]:checked')).map(el => el.value);
     }
 
+    function setRadioGroupRequired(name, required){
+      document.querySelectorAll(`input[name="${name}"]`).forEach(el => {
+        el.required = required;
+      });
+    }
+
+    function clearRadioGroup(name){
+      document.querySelectorAll(`input[name="${name}"]`).forEach(el => {
+        el.checked = false;
+      });
+    }
+
     function toggleCustomTheme(){
       customThemeWrap.classList.toggle('hide', theme.value !== 'custom');
     }
 
+    function toggleContractSection(){
+      const modules = getModules();
+      const show = modules.includes('contract_with_card') || modules.includes('contract_only');
+
+      contractSection.classList.toggle('hide', !show);
+      setRadioGroupRequired('contractMode', show);
+
+      if(!show){
+        clearRadioGroup('contractMode');
+        form.contractCustomText.value = '';
+        contractCustomWrap.classList.add('hide');
+      }else{
+        toggleContractCustom();
+      }
+    }
+
     function toggleContractCustom(){
-      contractCustomWrap.classList.toggle('hide', getRadioValue('contractMode') !== 'custom');
+      const showContract = !contractSection.classList.contains('hide');
+      const isCustom = getRadioValue('contractMode') === 'custom';
+      contractCustomWrap.classList.toggle('hide', !(showContract && isCustom));
+      if(!(showContract && isCustom)){
+        form.contractCustomText.value = '';
+      }
     }
 
     function toggleBasicCardSection(){
-      const show = getModules().includes('contract_with_card');
-      basicCardSection.classList.toggle('hide', !show);
+      basicCardSection.classList.toggle('hide', !getModules().includes('contract_with_card'));
     }
 
     function toggleHotelProfileSection(){
-      const show = getModules().includes('hotel_profile');
-      hotelProfileSection.classList.toggle('hide', !show);
+      hotelProfileSection.classList.toggle('hide', !getModules().includes('hotel_profile'));
     }
 
     function toggleHotelCheckoutSection(){
-      const show = getModules().includes('hotel_checkout');
-      hotelCheckoutSection.classList.toggle('hide', !show);
+      hotelCheckoutSection.classList.toggle('hide', !getModules().includes('hotel_checkout'));
     }
 
     function togglePhysicalCardSection(){
-      const show = getModules().includes('physical_card');
-      physicalCardSection.classList.toggle('hide', !show);
-      if(!show){
-        document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => el.checked = false);
-        document.getElementById('physicalCardCustomText').value = '';
-        physicalCardCustomWrap.classList.add('hide');
-      }
-    }
-
-    function togglePhysicalCardCustom(){
-      physicalCardCustomWrap.classList.toggle('hide', getRadioValue('physicalCardMode') !== 'custom');
+      physicalCardSection.classList.toggle('hide', !getModules().includes('physical_card'));
     }
 
     function togglePosterSection(){
-      const show = getModules().includes('poster');
-      posterSection.classList.toggle('hide', !show);
-      if(!show){
-        document.querySelectorAll('input[name="posterMode"]').forEach(el => el.checked = false);
-        document.getElementById('posterCustomText').value = '';
-        posterCustomWrap.classList.add('hide');
-      }
-    }
-
-    function togglePosterCustom(){
-      posterCustomWrap.classList.toggle('hide', getRadioValue('posterMode') !== 'custom');
+      posterSection.classList.toggle('hide', !getModules().includes('poster'));
     }
 
     function toggleFullCustom(){
@@ -1010,50 +985,23 @@
       return '$' + Number(num || 0).toLocaleString('zh-Hant-TW');
     }
 
-    function getPhysicalCardPrice(){
-      const mode = getRadioValue('physicalCardMode');
-      return mode === 'custom' ? PRICE_MAP.physical_card_custom : PRICE_MAP.physical_card_template;
-    }
-
-    function getPosterPrice(){
-      const mode = getRadioValue('posterMode');
-      return mode === 'custom' ? PRICE_MAP.poster_custom : PRICE_MAP.poster_template;
-    }
-
-    function getFullCustomPrice(){
-      return getRadioValue('fullCustomMode') === 'yes' ? PRICE_MAP.full_custom : 0;
-    }
-
     function updatePrice(){
       const modules = getModules();
       let total = 0;
       const selectedText = [];
 
       modules.forEach(key => {
-        if(key === 'physical_card'){
-          total += getPhysicalCardPrice();
-          selectedText.push(
-            getRadioValue('physicalCardMode') === 'custom'
-              ? '實體顧客資料卡（自行提供內容）'
-              : '實體顧客資料卡（照公版範本）'
-          );
-        }else if(key === 'poster'){
-          total += getPosterPrice();
-          selectedText.push(
-            getRadioValue('posterMode') === 'custom'
-              ? '半開契約海報（自行提供內容）'
-              : '半開契約海報（照公版範本）'
-          );
-        }else{
-          total += PRICE_MAP[key] || 0;
-          const map = {
-            contract_with_card: '定型化契約＋顧客資料卡',
-            contract_only: '定型化契約',
-            hotel_profile: '住宿基本資料卡',
-            hotel_checkout: '住宿明細確認單'
-          };
-          selectedText.push(map[key] || key);
-        }
+        total += PRICE_MAP[key] || 0;
+
+        const map = {
+          contract_with_card: '定型化契約＋顧客資料卡',
+          contract_only: '定型化契約',
+          hotel_profile: '住宿基本資料卡',
+          hotel_checkout: '住宿明細確認單',
+          physical_card: '實體顧客資料卡（公版）',
+          poster: '半開契約海報（公版）'
+        };
+        selectedText.push(map[key] || key);
       });
 
       if(getRadioValue('fullCustomMode') === 'yes'){
@@ -1068,14 +1016,12 @@
     }
 
     function syncContentSections(){
-      toggleContractCustom();
+      toggleContractSection();
       toggleBasicCardSection();
       toggleHotelProfileSection();
       toggleHotelCheckoutSection();
       togglePhysicalCardSection();
-      togglePhysicalCardCustom();
       togglePosterSection();
-      togglePosterCustom();
       toggleFullCustom();
       updateOperationHint();
       updatePrice();
@@ -1086,19 +1032,14 @@
       let total = 0;
 
       modules.forEach(key => {
-        if(key === 'physical_card'){
-          total += getPhysicalCardPrice();
-        }else if(key === 'poster'){
-          total += getPosterPrice();
-        }else{
-          total += PRICE_MAP[key] || 0;
-        }
+        total += PRICE_MAP[key] || 0;
       });
 
       if(getRadioValue('fullCustomMode') === 'yes'){
         total += PRICE_MAP.full_custom;
       }
 
+      const hasContractModule = modules.includes('contract_with_card') || modules.includes('contract_only');
       const orderId = generateOrderId();
 
       return {
@@ -1115,8 +1056,8 @@
         },
         modules,
         content: {
-          contractMode: getRadioValue('contractMode'),
-          contractCustomText: form.contractCustomText.value.trim(),
+          contractMode: hasContractModule ? getRadioValue('contractMode') : '',
+          contractCustomText: hasContractModule ? form.contractCustomText.value.trim() : '',
 
           basicCardMode: modules.includes('contract_with_card') ? 'template' : '',
           basicCardCustomText: '',
@@ -1127,11 +1068,11 @@
           hotelCheckoutMode: modules.includes('hotel_checkout') ? 'template' : '',
           hotelCheckoutCustomText: '',
 
-          physicalCardMode: getRadioValue('physicalCardMode'),
-          physicalCardCustomText: form.physicalCardCustomText.value.trim(),
+          physicalCardMode: modules.includes('physical_card') ? 'template' : '',
+          physicalCardCustomText: '',
 
-          posterMode: getRadioValue('posterMode'),
-          posterCustomText: form.posterCustomText.value.trim(),
+          posterMode: modules.includes('poster') ? 'template' : '',
+          posterCustomText: '',
 
           fullCustomMode: getRadioValue('fullCustomMode'),
           fullCustomText: form.fullCustomText.value.trim()
@@ -1149,10 +1090,8 @@
           contract_only: 3000,
           hotel_profile: 3000,
           hotel_checkout: 3000,
-          physical_card_template: 1500,
-          physical_card_custom: 2000,
-          poster_template: 1000,
-          poster_custom: 1500,
+          physical_card: 1500,
+          poster: 1000,
           full_custom: 2000,
           total: total
         }
@@ -1202,20 +1141,6 @@
     document.querySelectorAll('input[name="contractMode"]').forEach(el => {
       el.addEventListener('change', () => {
         toggleContractCustom();
-        updatePrice();
-      });
-    });
-
-    document.querySelectorAll('input[name="physicalCardMode"]').forEach(el => {
-      el.addEventListener('change', () => {
-        togglePhysicalCardCustom();
-        updatePrice();
-      });
-    });
-
-    document.querySelectorAll('input[name="posterMode"]').forEach(el => {
-      el.addEventListener('change', () => {
-        togglePosterCustom();
         updatePrice();
       });
     });
